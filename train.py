@@ -24,7 +24,8 @@ def main(argv):
 
   parser.add_argument('--pretrainedProto', default='data/pretrained/VGG_ILSVRC_19_layers_deploy.prototxt')
   parser.add_argument('--pretrainedModel', default='data/pretrained/VGG_ILSVRC_19_layers.caffemodel')
-   
+ 
+  parser.add_argument('--data', default='', help='Path to dataset.')  
 
   try:
     args = vars(parser.parse_args())
@@ -33,7 +34,7 @@ def main(argv):
 
  
   # Define models
-  generator = importlib.import_module('models' + '.' + args['model']).create() 
+  generator = importlib.import_module('models' + '.' + args['model']).create(caffe, args) 
 
 
 if __name__ == '__main__':
