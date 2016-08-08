@@ -11,4 +11,4 @@ def create(caffe, args):
     net = caffe.NetSpec()
     # TODO: create our own data layer that generates a mini-batch of noise tensors. Look at GenNoise and NoiseFill from 
     # texture net
-    net.data, net.label = L.Data(batch_size=args['batchSize'], source=args['data'], ntop=2)
+    net.data, net.label = L.Data(batch_size=args['batch_size'], source=args['data'], ntop=2)
