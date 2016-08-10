@@ -3,5 +3,5 @@ data/*/*
 !data/textures
 !data/textures/*
 
-models/pretrained
+models/pretrained/*
 !models/pretrained/download_models.sh
