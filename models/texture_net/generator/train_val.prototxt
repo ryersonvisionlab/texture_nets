@@ -1,1 +1,25 @@
+name: "TextureGeneratorNet"
+layer {
+  name: "conv"
+  type: "Convolution"
+  bottom: "yourmom"
+  top: "conv"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  include {
+    phase: TRAIN
+  }
+  convolution_param {
+    num_output: 3
+    pad: 5
+    kernel_size: 1
+    stride: 2
+  }
+}
 
