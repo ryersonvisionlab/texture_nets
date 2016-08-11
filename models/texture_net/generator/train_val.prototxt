@@ -1,9 +1,9 @@
 name: "TextureGeneratorNet"
 layer {
-  name: "conv"
+  name: "conv1"
   type: "Convolution"
-  bottom: "yourmom"
-  top: "conv"
+  bottom: "data"
+  top: "conv1"
   param {
     lr_mult: 1
     decay_mult: 1
@@ -21,5 +21,38 @@ layer {
     kernel_size: 1
     stride: 2
   }
+}
+layer {
+  name: "conv2"
+  type: "Convolution"
+  bottom: "conv1"
+  top: "conv2"
+  convolution_param {
+    num_output: 2
+    pad: 1
+    kernel_size: 3
+    stride: 1
+  }
+}
+layer {
+  name: "bn2"
+  type: "BatchNorm"
+  bottom: "conv2"
+  top: "bn2"
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+}
+layer {
+  name: "relu2"
+  type: "ReLU"
+  bottom: "bn2"
+  top: "bn2"
 }
 
