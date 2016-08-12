@@ -14,16 +14,52 @@ def solver():
 
 def train_val():
   # generate the generator prototxt for training and validation
-  ns = caffe.NetSpec()
-  ns.conv1 = L.Convolution(bottom='data', convolution_param={'kernel_size':1,
-                                                             'stride':2,
-                                                             'num_output':3, 
-                                                             'pad':5},
-                                          param=[{'lr_mult':1, 'decay_mult':1},
-                                                 {'lr_mult':2, 'decay_mult':0}],
-                                          include={'phase': caffe.TRAIN})
+  ratios = [32, 16]
+  conv_num = 8
+  
+  for i in range(0, len(ratios)):
 
-  append(ns, block(ns.conv1, 1, 2, 3, '2')) 
+    ns = caffe.NetSpec()
+    
+    data_key = 'data' + str(i+1)   
+    data = {data_key: L.Data(batch_size=1, source='./path/to/source')}
+    append(ns, data)
+    
+    pool_key = 'pool' + str(i+1)
+    pool = {pool_key: L.Pooling(getattr(ns, data_key), kernel_size=ratios[i], stride=ratios[i], pool=P.Pooling.AVE)}
+    append(ns, pool)
+ 
+    conv_block, top = block(getattr(ns, pool_key), conv_num, 3, str(3*i+1))
+    append(ns, conv_block)
+
+    conv_block, top = block(top, conv_num, 3, str(3*i+2))
+    append(ns, conv_block)
+
+    conv_block, top = block(top, conv_num, 1, str(3*i+3))
+    append(ns, conv_block)
+    
+    if i == 0:
+      cur = ns
+      cur_top = top
+    else:
+      join_block, top = join(cur, cur_top, ns, top, i, str(i))
+      append(cur, ns.tops)
+      append(cur, join_block)
+      
+      conv_block, top = block(top, conv_num*(i+1), 3, str(3*i+4))
+      append(cur, conv_block)
+
+      conv_block, top = block(top, conv_num*(i+1), 3, str(3*i+5))
+      append(cur, conv_block)
+
+      conv_block, top = block(top, conv_num*(i+1), 1, str(3*i+6))
+      append(cur, conv_block)
+
+      if i == len(ratios)-1:
+        conv_block, top = block(top, 3, 1, str(3*i+7))
+        append(cur, conv_block)
+   
+  ns = cur
 
   with open('train_val.prototxt', 'w') as W:
     W.write('name: "TextureGeneratorNet"\n')

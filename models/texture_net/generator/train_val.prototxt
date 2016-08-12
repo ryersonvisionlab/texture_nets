@@ -1,44 +1,41 @@
 name: "TextureGeneratorNet"
 layer {
-  name: "conv1"
-  type: "Convolution"
-  bottom: "data"
-  top: "conv1"
-  param {
-    lr_mult: 1
-    decay_mult: 1
-  }
-  param {
-    lr_mult: 2
-    decay_mult: 0
-  }
-  include {
-    phase: TRAIN
-  }
-  convolution_param {
-    num_output: 3
-    pad: 5
-    kernel_size: 1
-    stride: 2
+  name: "data1"
+  type: "Data"
+  top: "data1"
+  data_param {
+    source: "./path/to/source"
+    batch_size: 1
   }
 }
 layer {
-  name: "conv2"
+  name: "pool1"
+  type: "Pooling"
+  bottom: "data1"
+  top: "pool1"
+  pooling_param {
+    pool: AVE
+    kernel_size: 32
+    stride: 32
+  }
+}
+layer {
+  name: "block_conv1"
   type: "Convolution"
-  bottom: "conv1"
-  top: "conv2"
+  bottom: "pool1"
+  top: "block_conv1"
   convolution_param {
-    num_output: 2
+    num_output: 8
     pad: 1
     kernel_size: 3
     stride: 1
   }
 }
 layer {
-  name: "bn2"
+  name: "block_bn1"
   type: "BatchNorm"
-  bottom: "conv2"
-  top: "bn2"
+  bottom: "block_conv1"
+  top: "block_bn1"
   param {
     lr_mult: 0
   }
@@ -50,9 +47,366 @@ layer {
   }
 }
 layer {
-  name: "relu2"
+  name: "block_relu1"
   type: "ReLU"
-  bottom: "bn2"
-  top: "bn2"
+  bottom: "block_bn1"
+  top: "block_bn1"
+}
+layer {
+  name: "block_conv2"
+  type: "Convolution"
+  bottom: "block_bn1"
+  top: "block_conv2"
+  convolution_param {
+    num_output: 8
+    pad: 1
+    kernel_size: 3
+    stride: 1
+  }
+}
+layer {
+  name: "block_bn2"
+  type: "BatchNorm"
+  bottom: "block_conv2"
+  top: "block_bn2"
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+}
+layer {
+  name: "block_relu2"
+  type: "ReLU"
+  bottom: "block_bn2"
+  top: "block_bn2"
+}
+layer {
+  name: "block_conv3"
+  type: "Convolution"
+  bottom: "block_bn2"
+  top: "block_conv3"
+  convolution_param {
+    num_output: 8
+    pad: 0
+    kernel_size: 1
+    stride: 1
+  }
+}
+layer {
+  name: "block_bn3"
+  type: "BatchNorm"
+  bottom: "block_conv3"
+  top: "block_bn3"
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+}
+layer {
+  name: "block_relu3"
+  type: "ReLU"
+  bottom: "block_bn3"
+  top: "block_bn3"
+}
+layer {
+  name: "join_small_bn1"
+  type: "BatchNorm"
+  bottom: "block_bn3"
+  top: "join_small_bn1"
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+}
+layer {
+  name: "data2"
+  type: "Data"
+  top: "data2"
+  data_param {
+    source: "./path/to/source"
+    batch_size: 1
+  }
+}
+layer {
+  name: "pool2"
+  type: "Pooling"
+  bottom: "data2"
+  top: "pool2"
+  pooling_param {
+    pool: AVE
+    kernel_size: 16
+    stride: 16
+  }
+}
+layer {
+  name: "block_conv4"
+  type: "Convolution"
+  bottom: "pool2"
+  top: "block_conv4"
+  convolution_param {
+    num_output: 8
+    pad: 1
+    kernel_size: 3
+    stride: 1
+  }
+}
+layer {
+  name: "block_bn4"
+  type: "BatchNorm"
+  bottom: "block_conv4"
+  top: "block_bn4"
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+}
+layer {
+  name: "block_relu4"
+  type: "ReLU"
+  bottom: "block_bn4"
+  top: "block_bn4"
+}
+layer {
+  name: "block_conv5"
+  type: "Convolution"
+  bottom: "block_bn4"
+  top: "block_conv5"
+  convolution_param {
+    num_output: 8
+    pad: 1
+    kernel_size: 3
+    stride: 1
+  }
+}
+layer {
+  name: "block_bn5"
+  type: "BatchNorm"
+  bottom: "block_conv5"
+  top: "block_bn5"
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+}
+layer {
+  name: "block_relu5"
+  type: "ReLU"
+  bottom: "block_bn5"
+  top: "block_bn5"
+}
+layer {
+  name: "block_conv6"
+  type: "Convolution"
+  bottom: "block_bn5"
+  top: "block_conv6"
+  convolution_param {
+    num_output: 8
+    pad: 0
+    kernel_size: 1
+    stride: 1
+  }
+}
+layer {
+  name: "block_bn6"
+  type: "BatchNorm"
+  bottom: "block_conv6"
+  top: "block_bn6"
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+}
+layer {
+  name: "block_relu6"
+  type: "ReLU"
+  bottom: "block_bn6"
+  top: "block_bn6"
+}
+layer {
+  name: "join_large_bn1"
+  type: "BatchNorm"
+  bottom: "block_bn6"
+  top: "join_large_bn1"
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+}
+layer {
+  name: "join_concat1"
+  type: "Concat"
+  bottom: "join_small_bn1"
+  bottom: "join_large_bn1"
+  top: "join_concat1"
+  concat_param {
+    axis: 1
+  }
+}
+layer {
+  name: "block_conv7"
+  type: "Convolution"
+  bottom: "join_concat1"
+  top: "block_conv7"
+  convolution_param {
+    num_output: 16
+    pad: 1
+    kernel_size: 3
+    stride: 1
+  }
+}
+layer {
+  name: "block_bn7"
+  type: "BatchNorm"
+  bottom: "block_conv7"
+  top: "block_bn7"
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+}
+layer {
+  name: "block_relu7"
+  type: "ReLU"
+  bottom: "block_bn7"
+  top: "block_bn7"
+}
+layer {
+  name: "block_conv8"
+  type: "Convolution"
+  bottom: "block_bn7"
+  top: "block_conv8"
+  convolution_param {
+    num_output: 16
+    pad: 1
+    kernel_size: 3
+    stride: 1
+  }
+}
+layer {
+  name: "block_bn8"
+  type: "BatchNorm"
+  bottom: "block_conv8"
+  top: "block_bn8"
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+}
+layer {
+  name: "block_relu8"
+  type: "ReLU"
+  bottom: "block_bn8"
+  top: "block_bn8"
+}
+layer {
+  name: "block_conv9"
+  type: "Convolution"
+  bottom: "block_bn8"
+  top: "block_conv9"
+  convolution_param {
+    num_output: 16
+    pad: 0
+    kernel_size: 1
+    stride: 1
+  }
+}
+layer {
+  name: "block_bn9"
+  type: "BatchNorm"
+  bottom: "block_conv9"
+  top: "block_bn9"
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+}
+layer {
+  name: "block_relu9"
+  type: "ReLU"
+  bottom: "block_bn9"
+  top: "block_bn9"
+}
+layer {
+  name: "block_conv10"
+  type: "Convolution"
+  bottom: "block_bn9"
+  top: "block_conv10"
+  convolution_param {
+    num_output: 3
+    pad: 0
+    kernel_size: 1
+    stride: 1
+  }
+}
+layer {
+  name: "block_bn10"
+  type: "BatchNorm"
+  bottom: "block_conv10"
+  top: "block_bn10"
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+}
+layer {
+  name: "block_relu10"
+  type: "ReLU"
+  bottom: "block_bn10"
+  top: "block_bn10"
 }
 
