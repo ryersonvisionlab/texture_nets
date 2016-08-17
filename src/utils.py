@@ -41,8 +41,22 @@ def join(ns_small, bottom_small, ns_large, bottom_large, scale, id):
   #    1. Depth concatenation of upsampled smaller scale tensor onto larger scale tensor
   join = {}
 
-  append(ns_small, {'join_small_bn' + id: L.BatchNorm(bottom_small, param=[{'lr_mult': 0},{'lr_mult': 0},{'lr_mult': 0}])})
-  append(ns_large, {'join_large_bn' + id: L.BatchNorm(bottom_large, param=[{'lr_mult': 0},{'lr_mult': 0},{'lr_mult': 0}])}) 
+  join_small_nnup = L.Deconvolution(bottom_small, param=[{'lr_mult': 0},{'decay_mult': 0}], convolution_param={
+                                                                                              'num_output': 3,
+                                                                                              'bias_term': False,
+                                                                                              'pad': 1,
+                                                                                              'kernel_size': 2,
+                                                                                              'group': 3,
+                                                                                              'stride': 2,
+                                                                                              'weight_filler': {
+                                                                                                'type': 'constant',
+                                                                                                'value': 1
+                                                                                              }})
+  join_small_bn = L.BatchNorm(join_small_nnup, param=[{'lr_mult': 0},{'lr_mult': 0},{'lr_mult': 0}])
+  join_large_bn = L.BatchNorm(bottom_large, param=[{'lr_mult': 0},{'lr_mult': 0},{'lr_mult': 0}])
+
+  append(ns_small, OrderedDict([('join_small_nnup' + id, join_small_nnup), ('join_small_bn' + id, join_small_bn)]))
+  append(ns_large, {'join_large_bn' + id: join_large_bn}) 
 
   join['join_concat' + id] = L.Concat(bottom=['join_small_bn' + id, 'join_large_bn' + id], concat_param={'axis': 1})
   

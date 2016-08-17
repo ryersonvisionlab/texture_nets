@@ -1,0 +1,1 @@
+/home/mtesfald/texture_nets/data/textures/cezanne.jpg 1
