@@ -404,6 +404,7 @@ message LayerParameter {
   optional TileParameter tile_param = 138;
   optional WindowDataParameter window_data_param = 129;
   optional PhotometricAugmentationParameter photometric_augmentation_param = 173; // photometric augmentation
+  optional NoiseDataParameter noise_data_param = 174; // noise data layer
 }
 
 // Message that stores parameters used to apply transformation
@@ -1411,4 +1412,16 @@ message PhotometricAugmentationParameter {
   optional float noise_sigma = 8 [default = 0.0];
 
   repeated float mean_subtraction = 9;
+}
+
+// Noise Data Layer params
+message NoiseDataParameter {
+  optional uint32 batch_size = 1 [default = 1];
+  optional uint32 channels = 2 [default = 1];
+  optional uint32 spatial_size = 3 [default = 256];
+  optional string distribution = 4 [default = "uniform"];
+  optional float mu = 5 [default = 0.0];
+  optional float sigma = 6 [default = 0.57735026919]; // default is roughly 1/sqrt(3)
+  optional float min = 7 [default = -1.0];
+  optional float max = 8 [default = 1.0];
 }

@@ -1,11 +1,24 @@
+#layer {
+#  name: "data"
+#  type: "ImageData"
+#  top: "data"
+#  top: "label"
+#  image_data_param {
+#    source: "../../../data/textures/textures.txt"
+#    batch_size: 1
+#  }
+#}
 layer {
   name: "data"
-  type: "ImageData"
+  type: "NoiseData"
   top: "data"
-  top: "label"
-  image_data_param {
-    source: "../../../data/textures/textures.txt"
+  noise_data_param {
     batch_size: 1
+    channels: 3
+    spatial_size: 64
+    distribution: "gaussian"
+    mu: 0
+    sigma: 9
   }
 }
 layer {

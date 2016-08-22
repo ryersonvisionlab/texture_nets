@@ -1,28 +1,21 @@
 name: "TextureGeneratorNet"
 layer {
   name: "data1"
-  type: "Data"
+  type: "NoiseData"
   top: "data1"
-  data_param {
-    source: "./path/to/source"
-    batch_size: 1
-  }
-}
-layer {
-  name: "pool1"
-  type: "Pooling"
-  bottom: "data1"
-  top: "pool1"
-  pooling_param {
-    pool: AVE
-    kernel_size: 32
-    stride: 32
+  noise_data_param {
+    batch_size: 16
+    channels: 3
+    spatial_size: 16
+    distribution: "uniform"
+    min: -1
+    max: 1
   }
 }
 layer {
   name: "block_conv1"
   type: "Convolution"
-  bottom: "pool1"
+  bottom: "data1"
   top: "block_conv1"
   convolution_param {
     num_output: 8
@@ -159,28 +152,21 @@ layer {
 }
 layer {
   name: "data2"
-  type: "Data"
+  type: "NoiseData"
   top: "data2"
-  data_param {
-    source: "./path/to/source"
-    batch_size: 1
-  }
-}
-layer {
-  name: "pool2"
-  type: "Pooling"
-  bottom: "data2"
-  top: "pool2"
-  pooling_param {
-    pool: AVE
-    kernel_size: 16
-    stride: 16
+  noise_data_param {
+    batch_size: 16
+    channels: 3
+    spatial_size: 32
+    distribution: "uniform"
+    min: -1
+    max: 1
   }
 }
 layer {
   name: "block_conv4"
   type: "Convolution"
-  bottom: "pool2"
+  bottom: "data2"
   top: "block_conv4"
   convolution_param {
     num_output: 8
@@ -401,14 +387,190 @@ layer {
   top: "block_bn9"
 }
 layer {
-  name: "block_conv10"
-  type: "Convolution"
-  bottom: "block_bn9"
-  top: "block_conv10"
+  name: "join_small_nnup2"
+  type: "Deconvolution"
+  bottom: "block_bn3"
+  top: "join_small_nnup2"
+  param {
+    lr_mult: 0
+  }
+  param {
+    decay_mult: 0
+  }
   convolution_param {
     num_output: 3
+    bias_term: false
+    pad: 1
+    kernel_size: 2
+    group: 3
+    stride: 2
+    weight_filler {
+      type: "constant"
+      value: 1
+    }
+  }
+}
+layer {
+  name: "join_small_bn2"
+  type: "BatchNorm"
+  bottom: "join_small_nnup2"
+  top: "join_small_bn2"
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+}
+layer {
+  name: "data3"
+  type: "NoiseData"
+  top: "data3"
+  noise_data_param {
+    batch_size: 16
+    channels: 3
+    spatial_size: 64
+    distribution: "uniform"
+    min: -1
+    max: 1
+  }
+}
+layer {
+  name: "Convolution1"
+  type: "Convolution"
+  bottom: "data3"
+  top: "Convolution1"
+  convolution_param {
+    num_output: 8
+    pad: 1
+    kernel_size: 3
+    stride: 1
+  }
+}
+layer {
+  name: "BatchNorm1"
+  type: "BatchNorm"
+  bottom: "Convolution1"
+  top: "BatchNorm1"
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+}
+layer {
+  name: "ReLU1"
+  type: "ReLU"
+  bottom: "BatchNorm1"
+  top: "BatchNorm1"
+}
+layer {
+  name: "Convolution2"
+  type: "Convolution"
+  bottom: "BatchNorm1"
+  top: "Convolution2"
+  convolution_param {
+    num_output: 8
+    pad: 1
+    kernel_size: 3
+    stride: 1
+  }
+}
+layer {
+  name: "BatchNorm2"
+  type: "BatchNorm"
+  bottom: "Convolution2"
+  top: "BatchNorm2"
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+}
+layer {
+  name: "ReLU2"
+  type: "ReLU"
+  bottom: "BatchNorm2"
+  top: "BatchNorm2"
+}
+layer {
+  name: "Convolution3"
+  type: "Convolution"
+  bottom: "BatchNorm2"
+  top: "Convolution3"
+  convolution_param {
+    num_output: 8
     pad: 0
     kernel_size: 1
+    stride: 1
+  }
+}
+layer {
+  name: "BatchNorm3"
+  type: "BatchNorm"
+  bottom: "Convolution3"
+  top: "BatchNorm3"
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+}
+layer {
+  name: "ReLU3"
+  type: "ReLU"
+  bottom: "BatchNorm3"
+  top: "BatchNorm3"
+}
+layer {
+  name: "join_large_bn2"
+  type: "BatchNorm"
+  bottom: "BatchNorm3"
+  top: "join_large_bn2"
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+}
+layer {
+  name: "join_concat2"
+  type: "Concat"
+  bottom: "join_small_bn2"
+  bottom: "join_large_bn2"
+  top: "join_concat2"
+  concat_param {
+    axis: 1
+  }
+}
+layer {
+  name: "block_conv10"
+  type: "Convolution"
+  bottom: "join_concat2"
+  top: "block_conv10"
+  convolution_param {
+    num_output: 24
+    pad: 1
+    kernel_size: 3
     stride: 1
   }
 }
@@ -432,5 +594,104 @@ layer {
   type: "ReLU"
   bottom: "block_bn10"
   top: "block_bn10"
+}
+layer {
+  name: "block_conv11"
+  type: "Convolution"
+  bottom: "block_bn10"
+  top: "block_conv11"
+  convolution_param {
+    num_output: 24
+    pad: 1
+    kernel_size: 3
+    stride: 1
+  }
+}
+layer {
+  name: "block_bn11"
+  type: "BatchNorm"
+  bottom: "block_conv11"
+  top: "block_bn11"
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+}
+layer {
+  name: "block_relu11"
+  type: "ReLU"
+  bottom: "block_bn11"
+  top: "block_bn11"
+}
+layer {
+  name: "block_conv12"
+  type: "Convolution"
+  bottom: "block_bn11"
+  top: "block_conv12"
+  convolution_param {
+    num_output: 24
+    pad: 0
+    kernel_size: 1
+    stride: 1
+  }
+}
+layer {
+  name: "block_bn12"
+  type: "BatchNorm"
+  bottom: "block_conv12"
+  top: "block_bn12"
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+}
+layer {
+  name: "block_relu12"
+  type: "ReLU"
+  bottom: "block_bn12"
+  top: "block_bn12"
+}
+layer {
+  name: "block_conv13"
+  type: "Convolution"
+  bottom: "block_bn12"
+  top: "block_conv13"
+  convolution_param {
+    num_output: 3
+    pad: 0
+    kernel_size: 1
+    stride: 1
+  }
+}
+layer {
+  name: "block_bn13"
+  type: "BatchNorm"
+  bottom: "block_conv13"
+  top: "block_bn13"
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+}
+layer {
+  name: "block_relu13"
+  type: "ReLU"
+  bottom: "block_bn13"
+  top: "block_bn13"
 }
 

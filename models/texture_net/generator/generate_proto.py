@@ -14,7 +14,7 @@ def solver():
 
 def train_val():
   # generate the generator prototxt for training and validation
-  ratios = [32, 16]
+  ratios = [16, 8, 4]
   conv_num = 8
   
   for i in range(0, len(ratios)):
@@ -22,14 +22,19 @@ def train_val():
     ns = caffe.NetSpec()
     
     data_key = 'data' + str(i+1)   
-    data = {data_key: L.Data(batch_size=1, source='./path/to/source')}
+    data = {data_key: L.NoiseData(batch_size=16,
+                                  spatial_size=256/ratios[i],
+                                  channels=3,
+                                  min=-1,
+                                  max=1,
+                                  distribution='uniform')}
     append(ns, data)
     
-    pool_key = 'pool' + str(i+1)
-    pool = {pool_key: L.Pooling(getattr(ns, data_key), kernel_size=ratios[i], stride=ratios[i], pool=P.Pooling.AVE)}
-    append(ns, pool)
+    #pool_key = 'pool' + str(i+1)
+    #pool = {pool_key: L.Pooling(getattr(ns, data_key), kernel_size=ratios[i], stride=ratios[i], pool=P.Pooling.AVE)}
+    #append(ns, pool)
  
-    conv_block, top = block(getattr(ns, pool_key), conv_num, 3, str(3*i+1))
+    conv_block, top = block(getattr(ns, data_key), conv_num, 3, str(3*i+1))
     append(ns, conv_block)
 
     conv_block, top = block(top, conv_num, 3, str(3*i+2))

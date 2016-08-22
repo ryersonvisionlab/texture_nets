@@ -1,5 +1,3 @@
-#!/home/mtesfald/anaconda2/bin/python
-
 import numpy as np
 
 import caffe
@@ -28,6 +26,8 @@ def deprocess_net_image(image):
 
     return image
 
+print np.min(out['upsample'])
+print np.max(out['upsample'])
 img = deprocess_net_image(out['upsample'])
 
 plt.imshow(img)

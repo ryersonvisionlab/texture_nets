@@ -15,6 +15,8 @@ void NoiseDataLayer<Dtype>::DataLayerSetUp(const vector<Blob<Dtype>*>& bottom,
   distribution_ = this->layer_param_.noise_data_param().distribution();
   mu_ = this->layer_param_.noise_data_param().mu();
   sigma_ = this->layer_param_.noise_data_param().sigma();
+  min_ = this->layer_param_.noise_data_param().min();
+  max_ = this->layer_param_.noise_data_param().max();
   size_ = channels_ * spatial_size_ * spatial_size_;
   
   // Preliminary checks
@@ -23,7 +25,9 @@ void NoiseDataLayer<Dtype>::DataLayerSetUp(const vector<Blob<Dtype>*>& bottom,
       " positive in noise_data_param";
   CHECK_GT(sigma_, 0) <<
       "sigma must be specified and positive in noise_data_param";
-  CHECK(distribution_ == "uniform" || distribution_ == "gaussian") <<
+  CHECK_GT(max_, min_) <<
+      "max must be greater than min in noise_data_param";
+  CHECK(distribution_.compare("uniform") == 0 || distribution_.compare("gaussian") == 0) <<
       "distribution must be specified and be either \"uniform\" or \"gaussian\"";
   
   // Initialize shapes
@@ -37,50 +41,41 @@ void NoiseDataLayer<Dtype>::DataLayerSetUp(const vector<Blob<Dtype>*>& bottom,
 }
 
 template <typename Dtype>
-void NoiseDataLayer<Dtype>::AddBlob(const vector<Blob<Dtype>*> datum_vector) {
-  size_t num = datum_vector.size();
-  
-  CHECK(!has_new_data_) <<
-      "Can't add data until current data has been consumed.";
-  CHECK_GT(num, 0) <<
-      "There is no datum to add.";
-  CHECK_EQ(num % batch_size_, 0) <<
-      "The added data must be a multiple of the batch size.";
+void NoiseDataLayer<Dtype>::AddNoiseBlob() {
   
   // Some necessary reshaping before anything else
-  added_data_.Reshape(num, channels_, spatial_size_, spatial_size_);
+  added_data_.Reshape(batch_size_, channels_, spatial_size_, spatial_size_);
 
-  // num_images == batch_size_
+  // Add noise data
+  if (distribution_.compare("uniform") == 0) {
+    caffe_rng_uniform(added_data_.count(), Dtype(min_), Dtype(max_), added_data_.mutable_cpu_data());
+  } else if (distribution_.compare("gaussian") == 0) {
+    caffe_rng_gaussian(added_data_.count(), Dtype(mu_), Dtype(sigma_), added_data_.mutable_cpu_data());
+  }
+        
+  // Some checks and pointer transferring
   Dtype* top_data = added_data_.mutable_cpu_data();
-  Reset(top_data, num);
-  has_new_data_ = true;
+  Reset(top_data);
 }
 
 template <typename Dtype>
-void NoiseDataLayer<Dtype>::Reset(Dtype* data, int n) {
+void NoiseDataLayer<Dtype>::Reset(Dtype* data) {
+  
   CHECK(data);
-  CHECK_EQ(n % batch_size_, 0) << "n must be a multiple of batch size";
-  // Warn with transformation parameters since a memory array is meant to
-  // be generic and no transformations are done with Reset().
-  //if (this->layer_param_.has_transform_param()) {
-  //  LOG(WARNING) << this->type() << " does not transform array data on Reset()";
-  //}
+  
   data_ = data;
-  n_ = n;
-  pos_ = 0;
 }
 
 template <typename Dtype>
 void NoiseDataLayer<Dtype>::Forward_cpu(const vector<Blob<Dtype>*>& bottom,
       const vector<Blob<Dtype>*>& top) {
+
+  AddNoiseBlob();  
+
   CHECK(data_) << "NoiseDataLayer needs to be initialized by calling Reset";
   
   top[0]->Reshape(batch_size_, channels_, spatial_size_, spatial_size_);
-  top[0]->set_cpu_data(data_ + pos_ * size_);
-  
-  pos_ = (pos_ + batch_size_) % n_;
-  if (pos_ == 0)
-    has_new_data_ = false;
+  top[0]->set_cpu_data(data_);
 }
 
 INSTANTIATE_CLASS(NoiseDataLayer);
