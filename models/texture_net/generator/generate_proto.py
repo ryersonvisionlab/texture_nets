@@ -14,55 +14,55 @@ def solver():
 
 def train_val():
   # generate the generator prototxt for training and validation
-  ratios = [16, 8, 4]
+  ratios = [16, 8, 4, 2, 1]
   conv_num = 8
   
+  conv_block_counter = 1;
+  data_counter = 1;
+  join_block_counter = 1;
+
   for i in range(0, len(ratios)):
 
     ns = caffe.NetSpec()
     
-    data_key = 'data' + str(i+1)   
+    data_key = 'data' + str(data_counter)   
     data = {data_key: L.NoiseData(batch_size=16,
                                   spatial_size=256/ratios[i],
                                   channels=3,
                                   min=-1,
                                   max=1,
                                   distribution='uniform')}
-    append(ns, data)
-    
-    #pool_key = 'pool' + str(i+1)
-    #pool = {pool_key: L.Pooling(getattr(ns, data_key), kernel_size=ratios[i], stride=ratios[i], pool=P.Pooling.AVE)}
-    #append(ns, pool)
+    data_counter = append(ns, data, data_counter)
  
-    conv_block, top = block(getattr(ns, data_key), conv_num, 3, str(3*i+1))
-    append(ns, conv_block)
+    conv_block, top = block(getattr(ns, data_key), conv_num, 3, str(conv_block_counter))
+    conv_block_counter = append(ns, conv_block, conv_block_counter)
 
-    conv_block, top = block(top, conv_num, 3, str(3*i+2))
-    append(ns, conv_block)
+    conv_block, top = block(top, conv_num, 3, str(conv_block_counter))
+    conv_block_counter = append(ns, conv_block, conv_block_counter)
 
-    conv_block, top = block(top, conv_num, 1, str(3*i+3))
-    append(ns, conv_block)
+    conv_block, top = block(top, conv_num, 1, str(conv_block_counter))
+    conv_block_counter = append(ns, conv_block, conv_block_counter)
     
     if i == 0:
       cur = ns
       cur_top = top
     else:
-      join_block, top = join(cur, cur_top, ns, top, i, str(i))
+      join_block, cur_top = join(cur, cur_top, ns, top, i, str(join_block_counter))
       append(cur, ns.tops)
-      append(cur, join_block)
+      join_block_counter = append(cur, join_block, join_block_counter)
       
-      conv_block, top = block(top, conv_num*(i+1), 3, str(3*i+4))
-      append(cur, conv_block)
+      conv_block, cur_top = block(cur_top, conv_num*(i+1), 3, str(conv_block_counter))
+      conv_block_counter = append(cur, conv_block, conv_block_counter)
 
-      conv_block, top = block(top, conv_num*(i+1), 3, str(3*i+5))
-      append(cur, conv_block)
+      conv_block, cur_top = block(cur_top, conv_num*(i+1), 3, str(conv_block_counter))
+      conv_block_counter = append(cur, conv_block, conv_block_counter)
 
-      conv_block, top = block(top, conv_num*(i+1), 1, str(3*i+6))
-      append(cur, conv_block)
+      conv_block, cur_top = block(cur_top, conv_num*(i+1), 1, str(conv_block_counter))
+      conv_block_counter = append(cur, conv_block, conv_block_counter)
 
       if i == len(ratios)-1:
-        conv_block, top = block(top, 3, 1, str(3*i+7))
-        append(cur, conv_block)
+        conv_block, cur_top = block(cur_top, 3, 1, str(conv_block_counter))
+        conv_block_counter = append(cur, conv_block, conv_block_counter)
    
   ns = cur
 

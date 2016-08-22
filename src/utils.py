@@ -3,12 +3,13 @@ from caffe import layers as L, params as P
 from collections import OrderedDict
 
 # Helper function for appending layers to a Caffe net spec
-def append(net_spec, layers):
+def append(net_spec, layers, counter=0):
   for top, layer in layers.iteritems():
     if hasattr(net_spec, top):
-      print('Layer with same top already exists!')
+      print(top + ': ' + 'Layer with same top already exists!')
       continue
     setattr(net_spec, top, layer)
+  return counter + 1
 
 def block(bottom, num_output, k, id):
   # A convolution block that consists of:
