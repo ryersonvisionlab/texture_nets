@@ -405,6 +405,7 @@ message LayerParameter {
   optional WindowDataParameter window_data_param = 129;
   optional PhotometricAugmentationParameter photometric_augmentation_param = 173; // photometric augmentation
   optional NoiseDataParameter noise_data_param = 174; // noise data layer
+  optional GramianParameter gramian_param = 175; // gramian layer
 }
 
 // Message that stores parameters used to apply transformation
@@ -1424,4 +1425,10 @@ message NoiseDataParameter {
   optional float sigma = 6 [default = 0.57735026919]; // default is roughly 1/sqrt(3)
   optional float min = 7 [default = -1.0];
   optional float max = 8 [default = 1.0];
+}
+
+/// Message that stores parameters used by GramianLayer
+message GramianParameter {
+    // Whether to divide output by (2*num_channels*num_pixels)^2
+    optional bool normalize_output = 1 [default = false];
 }

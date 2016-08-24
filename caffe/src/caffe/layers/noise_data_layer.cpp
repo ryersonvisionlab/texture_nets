@@ -1,5 +1,3 @@
-#include <vector>
-
 #include "caffe/layers/noise_data_layer.hpp"
 
 namespace caffe {

@@ -6,7 +6,7 @@ caffe.set_mode_gpu()
 
 import matplotlib.pyplot as plt
 
-net = caffe.Net('./deploy.prototxt', caffe.TEST)
+net = caffe.Net('./test.prototxt', caffe.TEST)
 
 out = net.forward()
 

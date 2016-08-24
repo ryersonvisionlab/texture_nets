@@ -1,3 +1,5 @@
+#!/bin/bash
+
 if [ ! -d "./vgg_ilsvrc_19_layers" ]; then
   mkdir vgg_ilsvrc_19_layers
 fi
