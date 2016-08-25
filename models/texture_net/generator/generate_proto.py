@@ -2,18 +2,10 @@ import sys
 import caffe
 from caffe import layers as L, params as P
 sys.path.insert(0, '../../../src')
-from utils import block, join, append
+from utils import *
 
-def deploy():
-  # generate the generator prototxt for only feed-forward
-  pass
-
-def solver():
-  # generate the generator prototxt for the solver
-  pass
-
-def train_val():
-  # generate the generator prototxt for training and validation
+def generate():
+  # generate the generator prototxt
   ratios = [16, 8, 4, 2, 1]
   conv_num = 8
   
@@ -47,7 +39,7 @@ def train_val():
       cur = ns
       cur_top = top
     else:
-      join_block, cur_top = join(cur, cur_top, ns, top, i, str(join_block_counter))
+      join_block, cur_top = join(cur, cur_top, ns, top, conv_num*i, str(join_block_counter))
       append(cur, ns.tops)
       join_block_counter = append(cur, join_block, join_block_counter)
       
@@ -66,15 +58,12 @@ def train_val():
    
   ns = cur
 
-  with open('train_val.prototxt', 'w') as W:
-    W.write('name: "TextureGeneratorNet"\n')
+  with open('generator.prototxt', 'w') as W:
     W.write('%s\n' % ns.to_proto())
 
 
 def main(argv):
-  deploy()
-  solver()
-  train_val()
+  generate()
 
 
 if __name__ == '__main__':

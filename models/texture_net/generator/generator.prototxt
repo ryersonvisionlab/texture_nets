@@ -1,4 +1,3 @@
-name: "TextureGeneratorNet"
 layer {
   name: "data1"
   type: "NoiseData"
@@ -22,6 +21,9 @@ layer {
     pad: 1
     kernel_size: 3
     stride: 1
+    weight_filler {
+      type: "xavier"
+    }
   }
 }
 layer {
@@ -37,6 +39,9 @@ layer {
   }
   param {
     lr_mult: 0
+  }
+  batch_norm_param {
+    use_global_stats: false
   }
 }
 layer {
@@ -55,6 +60,9 @@ layer {
     pad: 1
     kernel_size: 3
     stride: 1
+    weight_filler {
+      type: "xavier"
+    }
   }
 }
 layer {
@@ -70,6 +78,9 @@ layer {
   }
   param {
     lr_mult: 0
+  }
+  batch_norm_param {
+    use_global_stats: false
   }
 }
 layer {
@@ -88,6 +99,9 @@ layer {
     pad: 0
     kernel_size: 1
     stride: 1
+    weight_filler {
+      type: "xavier"
+    }
   }
 }
 layer {
@@ -104,6 +118,9 @@ layer {
   param {
     lr_mult: 0
   }
+  batch_norm_param {
+    use_global_stats: false
+  }
 }
 layer {
   name: "block_relu3"
@@ -118,16 +135,14 @@ layer {
   top: "join_small_nnup1"
   param {
     lr_mult: 0
-  }
-  param {
     decay_mult: 0
   }
   convolution_param {
-    num_output: 3
+    num_output: 8
     bias_term: false
-    pad: 1
+    pad: 0
     kernel_size: 2
-    group: 3
+    group: 8
     stride: 2
     weight_filler {
       type: "constant"
@@ -148,6 +163,9 @@ layer {
   }
   param {
     lr_mult: 0
+  }
+  batch_norm_param {
+    use_global_stats: false
   }
 }
 layer {
@@ -173,6 +191,9 @@ layer {
     pad: 1
     kernel_size: 3
     stride: 1
+    weight_filler {
+      type: "xavier"
+    }
   }
 }
 layer {
@@ -188,6 +209,9 @@ layer {
   }
   param {
     lr_mult: 0
+  }
+  batch_norm_param {
+    use_global_stats: false
   }
 }
 layer {
@@ -206,6 +230,9 @@ layer {
     pad: 1
     kernel_size: 3
     stride: 1
+    weight_filler {
+      type: "xavier"
+    }
   }
 }
 layer {
@@ -221,6 +248,9 @@ layer {
   }
   param {
     lr_mult: 0
+  }
+  batch_norm_param {
+    use_global_stats: false
   }
 }
 layer {
@@ -239,6 +269,9 @@ layer {
     pad: 0
     kernel_size: 1
     stride: 1
+    weight_filler {
+      type: "xavier"
+    }
   }
 }
 layer {
@@ -254,6 +287,9 @@ layer {
   }
   param {
     lr_mult: 0
+  }
+  batch_norm_param {
+    use_global_stats: false
   }
 }
 layer {
@@ -276,6 +312,9 @@ layer {
   param {
     lr_mult: 0
   }
+  batch_norm_param {
+    use_global_stats: false
+  }
 }
 layer {
   name: "join_concat1"
@@ -297,6 +336,9 @@ layer {
     pad: 1
     kernel_size: 3
     stride: 1
+    weight_filler {
+      type: "xavier"
+    }
   }
 }
 layer {
@@ -312,6 +354,9 @@ layer {
   }
   param {
     lr_mult: 0
+  }
+  batch_norm_param {
+    use_global_stats: false
   }
 }
 layer {
@@ -330,6 +375,9 @@ layer {
     pad: 1
     kernel_size: 3
     stride: 1
+    weight_filler {
+      type: "xavier"
+    }
   }
 }
 layer {
@@ -345,6 +393,9 @@ layer {
   }
   param {
     lr_mult: 0
+  }
+  batch_norm_param {
+    use_global_stats: false
   }
 }
 layer {
@@ -363,6 +414,9 @@ layer {
     pad: 0
     kernel_size: 1
     stride: 1
+    weight_filler {
+      type: "xavier"
+    }
   }
 }
 layer {
@@ -379,6 +433,9 @@ layer {
   param {
     lr_mult: 0
   }
+  batch_norm_param {
+    use_global_stats: false
+  }
 }
 layer {
   name: "block_relu9"
@@ -393,16 +450,14 @@ layer {
   top: "join_small_nnup2"
   param {
     lr_mult: 0
-  }
-  param {
     decay_mult: 0
   }
   convolution_param {
-    num_output: 3
+    num_output: 16
     bias_term: false
-    pad: 1
+    pad: 0
     kernel_size: 2
-    group: 3
+    group: 16
     stride: 2
     weight_filler {
       type: "constant"
@@ -423,6 +478,9 @@ layer {
   }
   param {
     lr_mult: 0
+  }
+  batch_norm_param {
+    use_global_stats: false
   }
 }
 layer {
@@ -448,6 +506,9 @@ layer {
     pad: 1
     kernel_size: 3
     stride: 1
+    weight_filler {
+      type: "xavier"
+    }
   }
 }
 layer {
@@ -463,6 +524,9 @@ layer {
   }
   param {
     lr_mult: 0
+  }
+  batch_norm_param {
+    use_global_stats: false
   }
 }
 layer {
@@ -481,6 +545,9 @@ layer {
     pad: 1
     kernel_size: 3
     stride: 1
+    weight_filler {
+      type: "xavier"
+    }
   }
 }
 layer {
@@ -496,6 +563,9 @@ layer {
   }
   param {
     lr_mult: 0
+  }
+  batch_norm_param {
+    use_global_stats: false
   }
 }
 layer {
@@ -514,6 +584,9 @@ layer {
     pad: 0
     kernel_size: 1
     stride: 1
+    weight_filler {
+      type: "xavier"
+    }
   }
 }
 layer {
@@ -529,6 +602,9 @@ layer {
   }
   param {
     lr_mult: 0
+  }
+  batch_norm_param {
+    use_global_stats: false
   }
 }
 layer {
@@ -551,6 +627,9 @@ layer {
   param {
     lr_mult: 0
   }
+  batch_norm_param {
+    use_global_stats: false
+  }
 }
 layer {
   name: "join_concat2"
@@ -572,6 +651,9 @@ layer {
     pad: 1
     kernel_size: 3
     stride: 1
+    weight_filler {
+      type: "xavier"
+    }
   }
 }
 layer {
@@ -587,6 +669,9 @@ layer {
   }
   param {
     lr_mult: 0
+  }
+  batch_norm_param {
+    use_global_stats: false
   }
 }
 layer {
@@ -605,6 +690,9 @@ layer {
     pad: 1
     kernel_size: 3
     stride: 1
+    weight_filler {
+      type: "xavier"
+    }
   }
 }
 layer {
@@ -620,6 +708,9 @@ layer {
   }
   param {
     lr_mult: 0
+  }
+  batch_norm_param {
+    use_global_stats: false
   }
 }
 layer {
@@ -638,6 +729,9 @@ layer {
     pad: 0
     kernel_size: 1
     stride: 1
+    weight_filler {
+      type: "xavier"
+    }
   }
 }
 layer {
@@ -654,6 +748,9 @@ layer {
   param {
     lr_mult: 0
   }
+  batch_norm_param {
+    use_global_stats: false
+  }
 }
 layer {
   name: "block_relu15"
@@ -668,16 +765,14 @@ layer {
   top: "join_small_nnup3"
   param {
     lr_mult: 0
-  }
-  param {
     decay_mult: 0
   }
   convolution_param {
-    num_output: 3
+    num_output: 24
     bias_term: false
-    pad: 1
+    pad: 0
     kernel_size: 2
-    group: 3
+    group: 24
     stride: 2
     weight_filler {
       type: "constant"
@@ -698,6 +793,9 @@ layer {
   }
   param {
     lr_mult: 0
+  }
+  batch_norm_param {
+    use_global_stats: false
   }
 }
 layer {
@@ -723,6 +821,9 @@ layer {
     pad: 1
     kernel_size: 3
     stride: 1
+    weight_filler {
+      type: "xavier"
+    }
   }
 }
 layer {
@@ -738,6 +839,9 @@ layer {
   }
   param {
     lr_mult: 0
+  }
+  batch_norm_param {
+    use_global_stats: false
   }
 }
 layer {
@@ -756,6 +860,9 @@ layer {
     pad: 1
     kernel_size: 3
     stride: 1
+    weight_filler {
+      type: "xavier"
+    }
   }
 }
 layer {
@@ -771,6 +878,9 @@ layer {
   }
   param {
     lr_mult: 0
+  }
+  batch_norm_param {
+    use_global_stats: false
   }
 }
 layer {
@@ -789,6 +899,9 @@ layer {
     pad: 0
     kernel_size: 1
     stride: 1
+    weight_filler {
+      type: "xavier"
+    }
   }
 }
 layer {
@@ -804,6 +917,9 @@ layer {
   }
   param {
     lr_mult: 0
+  }
+  batch_norm_param {
+    use_global_stats: false
   }
 }
 layer {
@@ -826,6 +942,9 @@ layer {
   param {
     lr_mult: 0
   }
+  batch_norm_param {
+    use_global_stats: false
+  }
 }
 layer {
   name: "join_concat3"
@@ -847,6 +966,9 @@ layer {
     pad: 1
     kernel_size: 3
     stride: 1
+    weight_filler {
+      type: "xavier"
+    }
   }
 }
 layer {
@@ -862,6 +984,9 @@ layer {
   }
   param {
     lr_mult: 0
+  }
+  batch_norm_param {
+    use_global_stats: false
   }
 }
 layer {
@@ -880,6 +1005,9 @@ layer {
     pad: 1
     kernel_size: 3
     stride: 1
+    weight_filler {
+      type: "xavier"
+    }
   }
 }
 layer {
@@ -895,6 +1023,9 @@ layer {
   }
   param {
     lr_mult: 0
+  }
+  batch_norm_param {
+    use_global_stats: false
   }
 }
 layer {
@@ -913,6 +1044,9 @@ layer {
     pad: 0
     kernel_size: 1
     stride: 1
+    weight_filler {
+      type: "xavier"
+    }
   }
 }
 layer {
@@ -929,6 +1063,9 @@ layer {
   param {
     lr_mult: 0
   }
+  batch_norm_param {
+    use_global_stats: false
+  }
 }
 layer {
   name: "block_relu21"
@@ -943,16 +1080,14 @@ layer {
   top: "join_small_nnup4"
   param {
     lr_mult: 0
-  }
-  param {
     decay_mult: 0
   }
   convolution_param {
-    num_output: 3
+    num_output: 32
     bias_term: false
-    pad: 1
+    pad: 0
     kernel_size: 2
-    group: 3
+    group: 32
     stride: 2
     weight_filler {
       type: "constant"
@@ -973,6 +1108,9 @@ layer {
   }
   param {
     lr_mult: 0
+  }
+  batch_norm_param {
+    use_global_stats: false
   }
 }
 layer {
@@ -998,6 +1136,9 @@ layer {
     pad: 1
     kernel_size: 3
     stride: 1
+    weight_filler {
+      type: "xavier"
+    }
   }
 }
 layer {
@@ -1013,6 +1154,9 @@ layer {
   }
   param {
     lr_mult: 0
+  }
+  batch_norm_param {
+    use_global_stats: false
   }
 }
 layer {
@@ -1031,6 +1175,9 @@ layer {
     pad: 1
     kernel_size: 3
     stride: 1
+    weight_filler {
+      type: "xavier"
+    }
   }
 }
 layer {
@@ -1046,6 +1193,9 @@ layer {
   }
   param {
     lr_mult: 0
+  }
+  batch_norm_param {
+    use_global_stats: false
   }
 }
 layer {
@@ -1064,6 +1214,9 @@ layer {
     pad: 0
     kernel_size: 1
     stride: 1
+    weight_filler {
+      type: "xavier"
+    }
   }
 }
 layer {
@@ -1079,6 +1232,9 @@ layer {
   }
   param {
     lr_mult: 0
+  }
+  batch_norm_param {
+    use_global_stats: false
   }
 }
 layer {
@@ -1101,6 +1257,9 @@ layer {
   param {
     lr_mult: 0
   }
+  batch_norm_param {
+    use_global_stats: false
+  }
 }
 layer {
   name: "join_concat4"
@@ -1122,6 +1281,9 @@ layer {
     pad: 1
     kernel_size: 3
     stride: 1
+    weight_filler {
+      type: "xavier"
+    }
   }
 }
 layer {
@@ -1137,6 +1299,9 @@ layer {
   }
   param {
     lr_mult: 0
+  }
+  batch_norm_param {
+    use_global_stats: false
   }
 }
 layer {
@@ -1155,6 +1320,9 @@ layer {
     pad: 1
     kernel_size: 3
     stride: 1
+    weight_filler {
+      type: "xavier"
+    }
   }
 }
 layer {
@@ -1170,6 +1338,9 @@ layer {
   }
   param {
     lr_mult: 0
+  }
+  batch_norm_param {
+    use_global_stats: false
   }
 }
 layer {
@@ -1188,6 +1359,9 @@ layer {
     pad: 0
     kernel_size: 1
     stride: 1
+    weight_filler {
+      type: "xavier"
+    }
   }
 }
 layer {
@@ -1203,6 +1377,9 @@ layer {
   }
   param {
     lr_mult: 0
+  }
+  batch_norm_param {
+    use_global_stats: false
   }
 }
 layer {
@@ -1221,6 +1398,9 @@ layer {
     pad: 0
     kernel_size: 1
     stride: 1
+    weight_filler {
+      type: "xavier"
+    }
   }
 }
 layer {
@@ -1236,6 +1416,9 @@ layer {
   }
   param {
     lr_mult: 0
+  }
+  batch_norm_param {
+    use_global_stats: false
   }
 }
 layer {
