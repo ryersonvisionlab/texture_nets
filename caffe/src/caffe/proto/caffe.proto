@@ -403,7 +403,6 @@ message LayerParameter {
   optional ThresholdParameter threshold_param = 128;
   optional TileParameter tile_param = 138;
   optional WindowDataParameter window_data_param = 129;
-  optional PhotometricAugmentationParameter photometric_augmentation_param = 173; // photometric augmentation
   optional NoiseDataParameter noise_data_param = 174; // noise data layer
   optional GramianParameter gramian_param = 175; // gramian layer
 }
@@ -1401,20 +1400,6 @@ message PReLUParameter {
   optional bool channel_shared = 2 [default = false];
 }
 
-//photometric augmentation
-message PhotometricAugmentationParameter {
-  optional float contrast_min = 1 [default = 0.0];
-  optional float contrast_max = 2 [default = 0.0];
-  optional float brightness_sigma = 3 [default = 0.0];
-  optional float colour_min = 4 [default = 1.0];
-  optional float colour_max = 5 [default = 1.0];
-  optional float gamma_min = 6 [default = 1.0];
-  optional float gamma_max = 7 [default = 1.0];
-  optional float noise_sigma = 8 [default = 0.0];
-
-  repeated float mean_subtraction = 9;
-}
-
 // Noise Data Layer params
 message NoiseDataParameter {
   optional uint32 batch_size = 1 [default = 1];
@@ -1429,6 +1414,6 @@ message NoiseDataParameter {
 
 /// Message that stores parameters used by GramianLayer
 message GramianParameter {
-    // Whether to divide output by (2*num_channels*num_pixels)^2
-    optional bool normalize_output = 1 [default = false];
+  // Whether to divide output by (2*num_channels*num_pixels)^2
+  optional bool normalize_output = 1 [default = false];
 }

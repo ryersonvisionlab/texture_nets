@@ -1,3 +1,4 @@
+//TODO: write gpu version
 #include "caffe/layers/noise_data_layer.hpp"
 
 namespace caffe {

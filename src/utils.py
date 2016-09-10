@@ -67,3 +67,69 @@ def join(ns_small, bottom_small, ns_large, bottom_large, num_output, id):
   top = join['join_concat' + id]
 
   return join, top
+
+def conv_relu(bottom, num_output, k, id):
+  # A convolution followed by a RelU
+  conv = L.Convolution(bottom, convolution_param={'kernel_size': k,
+                                                  'num_output': num_output,
+                                                  'pad': 1})
+  relu = L.ReLU(conv, in_place=True)
+  
+  conv_relu = OrderedDict([('conv' + id, conv), ('conv_relu' + id, relu)])
+
+  top = conv_relu['conv_relu' + id]
+
+  return conv_relu, top
+
+def max_pool(bottom, stride, k, id):
+  pool = {'pool' + id: L.Pooling(bottom, kernel_size=k, stride=stride, pool=P.Pooling.MAX)}
+
+  top = pool['pool' + id]
+
+  return pool, top
+
+# named fc_ to avoid function name conflict with whatever was causing it
+def fc_(bottom, num_output, id):
+  fc = {'fc' + id: L.InnerProduct(bottom, inner_product_param={'num_output': num_output})}
+  
+  top = fc['fc' + id]
+
+  return fc, top
+
+def fc_relu_drop(bottom, num_output, ratio, id):
+  fc = L.InnerProduct(bottom, inner_product_param={'num_output': num_output})
+  relu = L.ReLU(fc, in_place=True)
+  drop = L.Dropout(relu, dropout_param={'dropout_ratio': ratio})
+
+  fc_relu_drop = OrderedDict([('fc' + id, fc), ('fc_relu' + id, relu), ('fc_drop' + id, drop)])
+
+  top = fc_relu_drop['fc_drop' + id]
+
+  return fc_relu_drop, top
+
+def softmax(bottom, id):
+  softmax = {'prob' + id: L.Softmax(bottom)}
+  
+  top = softmax['prob' + id]
+  
+  return softmax, top
+
+def texture_loss(bottom, target_dim, norm, id):
+  gramian = L.Gramian(bottom, gramian_param={'normalize_output': norm})
+  _, target = input(target_dim, id)
+  euclidean_loss = L.EuclideanLoss(bottom=['gram' + id, 'target' + id])
+  
+  texture_loss = OrderedDict([('gram' + id, gramian), 
+                              ('target' + id, target),
+                              ('euclidean_loss' + id, euclidean_loss)])
+
+  top = texture_loss['euclidean_loss' + id]
+
+  return texture_loss, top
+
+def input(dim, id):
+  input = {'input' + id: L.Input(input_param={'shape': {
+                                                'dim': dim}})}
+  top = input['input' + id]
+
+  return input, top

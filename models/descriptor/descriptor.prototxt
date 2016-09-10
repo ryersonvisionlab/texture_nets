@@ -1,0 +1,520 @@
+layer {
+  name: "input1"
+  type: "Input"
+  top: "input1"
+  input_param {
+    shape {
+      dim: 16
+      dim: 3
+      dim: 256
+      dim: 256
+    }
+  }
+}
+layer {
+  name: "conv1"
+  type: "Convolution"
+  bottom: "input1"
+  top: "conv1"
+  convolution_param {
+    num_output: 64
+    pad: 1
+    kernel_size: 3
+  }
+}
+layer {
+  name: "conv_relu1"
+  type: "ReLU"
+  bottom: "conv1"
+  top: "conv1"
+}
+layer {
+  name: "gram1"
+  type: "Gramian"
+  bottom: "conv1"
+  top: "gram1"
+  gramian_param {
+    normalize_output: true
+  }
+}
+layer {
+  name: "target1"
+  type: "Input"
+  top: "target1"
+  input_param {
+    shape {
+      dim: 16
+      dim: 1
+      dim: 1
+      dim: 4096
+    }
+  }
+}
+layer {
+  name: "euclidean_loss1"
+  type: "EuclideanLoss"
+  bottom: "gram1"
+  bottom: "target1"
+  top: "euclidean_loss1"
+}
+layer {
+  name: "conv2"
+  type: "Convolution"
+  bottom: "conv1"
+  top: "conv2"
+  convolution_param {
+    num_output: 64
+    pad: 1
+    kernel_size: 3
+  }
+}
+layer {
+  name: "conv_relu2"
+  type: "ReLU"
+  bottom: "conv2"
+  top: "conv2"
+}
+layer {
+  name: "pool1"
+  type: "Pooling"
+  bottom: "conv2"
+  top: "pool1"
+  pooling_param {
+    pool: MAX
+    kernel_size: 2
+    stride: 2
+  }
+}
+layer {
+  name: "conv3"
+  type: "Convolution"
+  bottom: "pool1"
+  top: "conv3"
+  convolution_param {
+    num_output: 128
+    pad: 1
+    kernel_size: 3
+  }
+}
+layer {
+  name: "conv_relu3"
+  type: "ReLU"
+  bottom: "conv3"
+  top: "conv3"
+}
+layer {
+  name: "gram2"
+  type: "Gramian"
+  bottom: "conv3"
+  top: "gram2"
+  gramian_param {
+    normalize_output: true
+  }
+}
+layer {
+  name: "target2"
+  type: "Input"
+  top: "target2"
+  input_param {
+    shape {
+      dim: 16
+      dim: 1
+      dim: 1
+      dim: 16384
+    }
+  }
+}
+layer {
+  name: "euclidean_loss2"
+  type: "EuclideanLoss"
+  bottom: "gram2"
+  bottom: "target2"
+  top: "euclidean_loss2"
+}
+layer {
+  name: "conv4"
+  type: "Convolution"
+  bottom: "conv3"
+  top: "conv4"
+  convolution_param {
+    num_output: 128
+    pad: 1
+    kernel_size: 3
+  }
+}
+layer {
+  name: "conv_relu4"
+  type: "ReLU"
+  bottom: "conv4"
+  top: "conv4"
+}
+layer {
+  name: "pool2"
+  type: "Pooling"
+  bottom: "conv4"
+  top: "pool2"
+  pooling_param {
+    pool: MAX
+    kernel_size: 2
+    stride: 2
+  }
+}
+layer {
+  name: "conv5"
+  type: "Convolution"
+  bottom: "pool2"
+  top: "conv5"
+  convolution_param {
+    num_output: 256
+    pad: 1
+    kernel_size: 3
+  }
+}
+layer {
+  name: "conv_relu5"
+  type: "ReLU"
+  bottom: "conv5"
+  top: "conv5"
+}
+layer {
+  name: "gram3"
+  type: "Gramian"
+  bottom: "conv5"
+  top: "gram3"
+  gramian_param {
+    normalize_output: true
+  }
+}
+layer {
+  name: "target3"
+  type: "Input"
+  top: "target3"
+  input_param {
+    shape {
+      dim: 16
+      dim: 1
+      dim: 1
+      dim: 65536
+    }
+  }
+}
+layer {
+  name: "euclidean_loss3"
+  type: "EuclideanLoss"
+  bottom: "gram3"
+  bottom: "target3"
+  top: "euclidean_loss3"
+}
+layer {
+  name: "conv6"
+  type: "Convolution"
+  bottom: "conv5"
+  top: "conv6"
+  convolution_param {
+    num_output: 256
+    pad: 1
+    kernel_size: 3
+  }
+}
+layer {
+  name: "conv_relu6"
+  type: "ReLU"
+  bottom: "conv6"
+  top: "conv6"
+}
+layer {
+  name: "conv7"
+  type: "Convolution"
+  bottom: "conv6"
+  top: "conv7"
+  convolution_param {
+    num_output: 256
+    pad: 1
+    kernel_size: 3
+  }
+}
+layer {
+  name: "conv_relu7"
+  type: "ReLU"
+  bottom: "conv7"
+  top: "conv7"
+}
+layer {
+  name: "conv8"
+  type: "Convolution"
+  bottom: "conv7"
+  top: "conv8"
+  convolution_param {
+    num_output: 256
+    pad: 1
+    kernel_size: 3
+  }
+}
+layer {
+  name: "conv_relu8"
+  type: "ReLU"
+  bottom: "conv8"
+  top: "conv8"
+}
+layer {
+  name: "pool3"
+  type: "Pooling"
+  bottom: "conv8"
+  top: "pool3"
+  pooling_param {
+    pool: MAX
+    kernel_size: 2
+    stride: 2
+  }
+}
+layer {
+  name: "conv9"
+  type: "Convolution"
+  bottom: "pool3"
+  top: "conv9"
+  convolution_param {
+    num_output: 512
+    pad: 1
+    kernel_size: 3
+  }
+}
+layer {
+  name: "conv_relu9"
+  type: "ReLU"
+  bottom: "conv9"
+  top: "conv9"
+}
+layer {
+  name: "gram4"
+  type: "Gramian"
+  bottom: "conv9"
+  top: "gram4"
+  gramian_param {
+    normalize_output: true
+  }
+}
+layer {
+  name: "target4"
+  type: "Input"
+  top: "target4"
+  input_param {
+    shape {
+      dim: 16
+      dim: 1
+      dim: 1
+      dim: 262144
+    }
+  }
+}
+layer {
+  name: "euclidean_loss4"
+  type: "EuclideanLoss"
+  bottom: "gram4"
+  bottom: "target4"
+  top: "euclidean_loss4"
+}
+layer {
+  name: "conv10"
+  type: "Convolution"
+  bottom: "conv9"
+  top: "conv10"
+  convolution_param {
+    num_output: 512
+    pad: 1
+    kernel_size: 3
+  }
+}
+layer {
+  name: "conv_relu10"
+  type: "ReLU"
+  bottom: "conv10"
+  top: "conv10"
+}
+layer {
+  name: "conv11"
+  type: "Convolution"
+  bottom: "conv10"
+  top: "conv11"
+  convolution_param {
+    num_output: 512
+    pad: 1
+    kernel_size: 3
+  }
+}
+layer {
+  name: "conv_relu11"
+  type: "ReLU"
+  bottom: "conv11"
+  top: "conv11"
+}
+layer {
+  name: "conv12"
+  type: "Convolution"
+  bottom: "conv11"
+  top: "conv12"
+  convolution_param {
+    num_output: 512
+    pad: 1
+    kernel_size: 3
+  }
+}
+layer {
+  name: "conv_relu12"
+  type: "ReLU"
+  bottom: "conv12"
+  top: "conv12"
+}
+layer {
+  name: "pool4"
+  type: "Pooling"
+  bottom: "conv12"
+  top: "pool4"
+  pooling_param {
+    pool: MAX
+    kernel_size: 2
+    stride: 2
+  }
+}
+layer {
+  name: "conv13"
+  type: "Convolution"
+  bottom: "pool4"
+  top: "conv13"
+  convolution_param {
+    num_output: 512
+    pad: 1
+    kernel_size: 3
+  }
+}
+layer {
+  name: "conv_relu13"
+  type: "ReLU"
+  bottom: "conv13"
+  top: "conv13"
+}
+layer {
+  name: "conv14"
+  type: "Convolution"
+  bottom: "conv13"
+  top: "conv14"
+  convolution_param {
+    num_output: 512
+    pad: 1
+    kernel_size: 3
+  }
+}
+layer {
+  name: "conv_relu14"
+  type: "ReLU"
+  bottom: "conv14"
+  top: "conv14"
+}
+layer {
+  name: "conv15"
+  type: "Convolution"
+  bottom: "conv14"
+  top: "conv15"
+  convolution_param {
+    num_output: 512
+    pad: 1
+    kernel_size: 3
+  }
+}
+layer {
+  name: "conv_relu15"
+  type: "ReLU"
+  bottom: "conv15"
+  top: "conv15"
+}
+layer {
+  name: "conv16"
+  type: "Convolution"
+  bottom: "conv15"
+  top: "conv16"
+  convolution_param {
+    num_output: 512
+    pad: 1
+    kernel_size: 3
+  }
+}
+layer {
+  name: "conv_relu16"
+  type: "ReLU"
+  bottom: "conv16"
+  top: "conv16"
+}
+layer {
+  name: "pool5"
+  type: "Pooling"
+  bottom: "conv16"
+  top: "pool5"
+  pooling_param {
+    pool: MAX
+    kernel_size: 2
+    stride: 2
+  }
+}
+layer {
+  name: "fc1"
+  type: "InnerProduct"
+  bottom: "pool5"
+  top: "fc1"
+  inner_product_param {
+    num_output: 4096
+  }
+}
+layer {
+  name: "fc_relu1"
+  type: "ReLU"
+  bottom: "fc1"
+  top: "fc1"
+}
+layer {
+  name: "fc_drop1"
+  type: "Dropout"
+  bottom: "fc1"
+  top: "fc_drop1"
+  dropout_param {
+    dropout_ratio: 0.5
+  }
+}
+layer {
+  name: "fc2"
+  type: "InnerProduct"
+  bottom: "fc_drop1"
+  top: "fc2"
+  inner_product_param {
+    num_output: 4096
+  }
+}
+layer {
+  name: "fc_relu2"
+  type: "ReLU"
+  bottom: "fc2"
+  top: "fc2"
+}
+layer {
+  name: "fc_drop2"
+  type: "Dropout"
+  bottom: "fc2"
+  top: "fc_drop2"
+  dropout_param {
+    dropout_ratio: 0.5
+  }
+}
+layer {
+  name: "fc3"
+  type: "InnerProduct"
+  bottom: "fc_drop2"
+  top: "fc3"
+  inner_product_param {
+    num_output: 1000
+  }
+}
+layer {
+  name: "prob1"
+  type: "Softmax"
+  bottom: "fc3"
+  top: "prob1"
+}
+

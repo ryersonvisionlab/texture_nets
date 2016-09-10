@@ -1,7 +1,7 @@
 import sys
 import caffe
 from caffe import layers as L, params as P
-sys.path.insert(0, '../../../src')
+sys.path.insert(0, '../../src')
 from utils import *
 
 def generate():
