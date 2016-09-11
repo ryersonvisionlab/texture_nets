@@ -8,7 +8,7 @@ def generate(bottom=None):
   # generate the descriptor prototxt. It's VGG19 with gram layers
   # and euclidean loss layers inserted at certain places.
 
-  input_dim = [16,3,256,256]
+  input_dim = [1,3,256,256]
 
   data_counter = 1
   conv_relu_counter = 1
@@ -39,7 +39,7 @@ def generate(bottom=None):
       conv_relu_counter = append(ns, cr, conv_relu_counter)
 
       # attach texture loss (after relu1_1, relu2_1)
-      loss, _ = texture_loss(top, [16,num_output**2], True, str(i) + '_1')
+      loss, _ = texture_loss(top, [1,num_output**2], True, str(i) + '_1')
       txt_loss_counter = append(ns, loss, txt_loss_counter)
 
       # convi_2, relui_2
@@ -50,7 +50,7 @@ def generate(bottom=None):
       pl, top = max_pool(top, 2, 2, str(i))
       pool_counter = append(ns, pl, pool_counter)
 
-    if i >= 3 and i <= 5:
+    if i >= 3 and i <= 4:
       
       if i == 3:
         num_output = 256
@@ -63,25 +63,27 @@ def generate(bottom=None):
 
       if i <= 4:
         # attach texture loss (after relu3_1, relu4_1)
-        loss, _ = texture_loss(top, [16,num_output**2], True, str(i) + '_1')
+        loss, _ = texture_loss(top, [1,num_output**2], True, str(i) + '_1')
         txt_loss_counter = append(ns, loss, txt_loss_counter)
+      
+      if i == 3:
+        # convi_2, relui_2
+        cr, top = conv_relu(top, num_output, 3, False, str(i) + '_2')
+        conv_relu_counter = append(ns, cr, conv_relu_counter)
 
-      # convi_2, relui_2
-      cr, top = conv_relu(top, num_output, 3, False, str(i) + '_2')
-      conv_relu_counter = append(ns, cr, conv_relu_counter)
+        # convi_3, relui_3
+        cr, top = conv_relu(top, num_output, 3, False, str(i) + '_3')
+        conv_relu_counter = append(ns, cr, conv_relu_counter)
 
-      # convi_3, relui_3
-      cr, top = conv_relu(top, num_output, 3, False, str(i) + '_3')
-      conv_relu_counter = append(ns, cr, conv_relu_counter)
+        # convi_4, relui_4
+        cr, top = conv_relu(top, num_output, 3, False, str(i) + '_4')
+        conv_relu_counter = append(ns, cr, conv_relu_counter)
 
-      # convi_4, relui_4
-      cr, top = conv_relu(top, num_output, 3, False, str(i) + '_4')
-      conv_relu_counter = append(ns, cr, conv_relu_counter)
+        # pooli
+        pl, top = max_pool(top, 2, 2, str(i))
+        pool_counter = append(ns, pl, pool_counter)
 
-      # pooli
-      pl, top = max_pool(top, 2, 2, str(i))
-      pool_counter = append(ns, pl, pool_counter)    
-
+    ''' no need for fully-connected layers
     if i >= 6 and i <= 7:
       # fci, relui, dropi
       fc, top = fc_relu_drop(top, 4096, 0.5, False, str(i))
@@ -96,6 +98,7 @@ def generate(bottom=None):
       # prob
       prob, top = softmax(top, str(softmax_counter))
       softmax_counter = append(ns, prob, softmax_counter)
+    '''
 
   if not bottom:
     with open('descriptor.prototxt', 'w') as W:

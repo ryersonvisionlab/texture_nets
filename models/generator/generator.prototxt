@@ -3,7 +3,7 @@ layer {
   type: "NoiseData"
   top: "data1"
   noise_data_param {
-    batch_size: 16
+    batch_size: 1
     channels: 3
     spatial_size: 16
     distribution: "uniform"
@@ -39,9 +39,6 @@ layer {
   }
   param {
     lr_mult: 0
-  }
-  batch_norm_param {
-    use_global_stats: false
   }
 }
 layer {
@@ -79,9 +76,6 @@ layer {
   param {
     lr_mult: 0
   }
-  batch_norm_param {
-    use_global_stats: false
-  }
 }
 layer {
   name: "block_relu2"
@@ -117,9 +111,6 @@ layer {
   }
   param {
     lr_mult: 0
-  }
-  batch_norm_param {
-    use_global_stats: false
   }
 }
 layer {
@@ -164,16 +155,13 @@ layer {
   param {
     lr_mult: 0
   }
-  batch_norm_param {
-    use_global_stats: false
-  }
 }
 layer {
   name: "data2"
   type: "NoiseData"
   top: "data2"
   noise_data_param {
-    batch_size: 16
+    batch_size: 1
     channels: 3
     spatial_size: 32
     distribution: "uniform"
@@ -209,9 +197,6 @@ layer {
   }
   param {
     lr_mult: 0
-  }
-  batch_norm_param {
-    use_global_stats: false
   }
 }
 layer {
@@ -249,9 +234,6 @@ layer {
   param {
     lr_mult: 0
   }
-  batch_norm_param {
-    use_global_stats: false
-  }
 }
 layer {
   name: "block_relu5"
@@ -288,9 +270,6 @@ layer {
   param {
     lr_mult: 0
   }
-  batch_norm_param {
-    use_global_stats: false
-  }
 }
 layer {
   name: "block_relu6"
@@ -311,9 +290,6 @@ layer {
   }
   param {
     lr_mult: 0
-  }
-  batch_norm_param {
-    use_global_stats: false
   }
 }
 layer {
@@ -355,9 +331,6 @@ layer {
   param {
     lr_mult: 0
   }
-  batch_norm_param {
-    use_global_stats: false
-  }
 }
 layer {
   name: "block_relu7"
@@ -394,9 +367,6 @@ layer {
   param {
     lr_mult: 0
   }
-  batch_norm_param {
-    use_global_stats: false
-  }
 }
 layer {
   name: "block_relu8"
@@ -432,9 +402,6 @@ layer {
   }
   param {
     lr_mult: 0
-  }
-  batch_norm_param {
-    use_global_stats: false
   }
 }
 layer {
@@ -479,16 +446,13 @@ layer {
   param {
     lr_mult: 0
   }
-  batch_norm_param {
-    use_global_stats: false
-  }
 }
 layer {
   name: "data3"
   type: "NoiseData"
   top: "data3"
   noise_data_param {
-    batch_size: 16
+    batch_size: 1
     channels: 3
     spatial_size: 64
     distribution: "uniform"
@@ -524,9 +488,6 @@ layer {
   }
   param {
     lr_mult: 0
-  }
-  batch_norm_param {
-    use_global_stats: false
   }
 }
 layer {
@@ -564,9 +525,6 @@ layer {
   param {
     lr_mult: 0
   }
-  batch_norm_param {
-    use_global_stats: false
-  }
 }
 layer {
   name: "block_relu11"
@@ -603,9 +561,6 @@ layer {
   param {
     lr_mult: 0
   }
-  batch_norm_param {
-    use_global_stats: false
-  }
 }
 layer {
   name: "block_relu12"
@@ -626,9 +581,6 @@ layer {
   }
   param {
     lr_mult: 0
-  }
-  batch_norm_param {
-    use_global_stats: false
   }
 }
 layer {
@@ -670,9 +622,6 @@ layer {
   param {
     lr_mult: 0
   }
-  batch_norm_param {
-    use_global_stats: false
-  }
 }
 layer {
   name: "block_relu13"
@@ -709,9 +658,6 @@ layer {
   param {
     lr_mult: 0
   }
-  batch_norm_param {
-    use_global_stats: false
-  }
 }
 layer {
   name: "block_relu14"
@@ -747,9 +693,6 @@ layer {
   }
   param {
     lr_mult: 0
-  }
-  batch_norm_param {
-    use_global_stats: false
   }
 }
 layer {
@@ -794,16 +737,13 @@ layer {
   param {
     lr_mult: 0
   }
-  batch_norm_param {
-    use_global_stats: false
-  }
 }
 layer {
   name: "data4"
   type: "NoiseData"
   top: "data4"
   noise_data_param {
-    batch_size: 16
+    batch_size: 1
     channels: 3
     spatial_size: 128
     distribution: "uniform"
@@ -839,9 +779,6 @@ layer {
   }
   param {
     lr_mult: 0
-  }
-  batch_norm_param {
-    use_global_stats: false
   }
 }
 layer {
@@ -879,9 +816,6 @@ layer {
   param {
     lr_mult: 0
   }
-  batch_norm_param {
-    use_global_stats: false
-  }
 }
 layer {
   name: "block_relu17"
@@ -918,9 +852,6 @@ layer {
   param {
     lr_mult: 0
   }
-  batch_norm_param {
-    use_global_stats: false
-  }
 }
 layer {
   name: "block_relu18"
@@ -941,9 +872,6 @@ layer {
   }
   param {
     lr_mult: 0
-  }
-  batch_norm_param {
-    use_global_stats: false
   }
 }
 layer {
@@ -985,9 +913,6 @@ layer {
   param {
     lr_mult: 0
   }
-  batch_norm_param {
-    use_global_stats: false
-  }
 }
 layer {
   name: "block_relu19"
@@ -1024,9 +949,6 @@ layer {
   param {
     lr_mult: 0
   }
-  batch_norm_param {
-    use_global_stats: false
-  }
 }
 layer {
   name: "block_relu20"
@@ -1062,9 +984,6 @@ layer {
   }
   param {
     lr_mult: 0
-  }
-  batch_norm_param {
-    use_global_stats: false
   }
 }
 layer {
@@ -1109,16 +1028,13 @@ layer {
   param {
     lr_mult: 0
   }
-  batch_norm_param {
-    use_global_stats: false
-  }
 }
 layer {
   name: "data5"
   type: "NoiseData"
   top: "data5"
   noise_data_param {
-    batch_size: 16
+    batch_size: 1
     channels: 3
     spatial_size: 256
     distribution: "uniform"
@@ -1154,9 +1070,6 @@ layer {
   }
   param {
     lr_mult: 0
-  }
-  batch_norm_param {
-    use_global_stats: false
   }
 }
 layer {
@@ -1194,9 +1107,6 @@ layer {
   param {
     lr_mult: 0
   }
-  batch_norm_param {
-    use_global_stats: false
-  }
 }
 layer {
   name: "block_relu23"
@@ -1233,9 +1143,6 @@ layer {
   param {
     lr_mult: 0
   }
-  batch_norm_param {
-    use_global_stats: false
-  }
 }
 layer {
   name: "block_relu24"
@@ -1256,9 +1163,6 @@ layer {
   }
   param {
     lr_mult: 0
-  }
-  batch_norm_param {
-    use_global_stats: false
   }
 }
 layer {
@@ -1300,9 +1204,6 @@ layer {
   param {
     lr_mult: 0
   }
-  batch_norm_param {
-    use_global_stats: false
-  }
 }
 layer {
   name: "block_relu25"
@@ -1338,9 +1239,6 @@ layer {
   }
   param {
     lr_mult: 0
-  }
-  batch_norm_param {
-    use_global_stats: false
   }
 }
 layer {
@@ -1378,9 +1276,6 @@ layer {
   param {
     lr_mult: 0
   }
-  batch_norm_param {
-    use_global_stats: false
-  }
 }
 layer {
   name: "block_relu27"
@@ -1416,9 +1311,6 @@ layer {
   }
   param {
     lr_mult: 0
-  }
-  batch_norm_param {
-    use_global_stats: false
   }
 }
 layer {

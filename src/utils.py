@@ -24,7 +24,7 @@ def block(bottom, num_output, k, id):
                                                         'weight_filler': {
                                                           'type': 'xavier'
                                                         }})
-  block_bn = L.BatchNorm(block_conv, use_global_stats=False, param=[{'lr_mult': 0},{'lr_mult': 0},{'lr_mult': 0}])
+  block_bn = L.BatchNorm(block_conv, param=[{'lr_mult': 0},{'lr_mult': 0},{'lr_mult': 0}])
   block_relu = L.ReLU(block_bn, in_place=True)
   
   block = OrderedDict([('block_conv' + id, block_conv), ('block_bn' + id, block_bn), ('block_relu' + id, block_relu)])
@@ -56,8 +56,8 @@ def join(ns_small, bottom_small, ns_large, bottom_large, num_output, id):
                                                                                                 'type': 'constant',
                                                                                                 'value': 1
                                                                                               }})
-  join_small_bn = L.BatchNorm(join_small_nnup, use_global_stats=False, param=[{'lr_mult': 0},{'lr_mult': 0},{'lr_mult': 0}])
-  join_large_bn = L.BatchNorm(bottom_large, use_global_stats=False, param=[{'lr_mult': 0},{'lr_mult': 0},{'lr_mult': 0}])
+  join_small_bn = L.BatchNorm(join_small_nnup, param=[{'lr_mult': 0},{'lr_mult': 0},{'lr_mult': 0}])
+  join_large_bn = L.BatchNorm(bottom_large, param=[{'lr_mult': 0},{'lr_mult': 0},{'lr_mult': 0}])
 
   append(ns_small, OrderedDict([('join_small_nnup' + id, join_small_nnup), ('join_small_bn' + id, join_small_bn)]))
   append(ns_large, {'join_large_bn' + id: join_large_bn}) 

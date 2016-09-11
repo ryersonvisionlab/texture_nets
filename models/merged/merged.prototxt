@@ -4,7 +4,7 @@ layer {
   type: "NoiseData"
   top: "data1"
   noise_data_param {
-    batch_size: 16
+    batch_size: 1
     channels: 3
     spatial_size: 16
     distribution: "uniform"
@@ -40,9 +40,6 @@ layer {
   }
   param {
     lr_mult: 0
-  }
-  batch_norm_param {
-    use_global_stats: false
   }
 }
 layer {
@@ -80,9 +77,6 @@ layer {
   param {
     lr_mult: 0
   }
-  batch_norm_param {
-    use_global_stats: false
-  }
 }
 layer {
   name: "block_relu2"
@@ -118,9 +112,6 @@ layer {
   }
   param {
     lr_mult: 0
-  }
-  batch_norm_param {
-    use_global_stats: false
   }
 }
 layer {
@@ -165,16 +156,13 @@ layer {
   param {
     lr_mult: 0
   }
-  batch_norm_param {
-    use_global_stats: false
-  }
 }
 layer {
   name: "data2"
   type: "NoiseData"
   top: "data2"
   noise_data_param {
-    batch_size: 16
+    batch_size: 1
     channels: 3
     spatial_size: 32
     distribution: "uniform"
@@ -210,9 +198,6 @@ layer {
   }
   param {
     lr_mult: 0
-  }
-  batch_norm_param {
-    use_global_stats: false
   }
 }
 layer {
@@ -250,9 +235,6 @@ layer {
   param {
     lr_mult: 0
   }
-  batch_norm_param {
-    use_global_stats: false
-  }
 }
 layer {
   name: "block_relu5"
@@ -289,9 +271,6 @@ layer {
   param {
     lr_mult: 0
   }
-  batch_norm_param {
-    use_global_stats: false
-  }
 }
 layer {
   name: "block_relu6"
@@ -312,9 +291,6 @@ layer {
   }
   param {
     lr_mult: 0
-  }
-  batch_norm_param {
-    use_global_stats: false
   }
 }
 layer {
@@ -356,9 +332,6 @@ layer {
   param {
     lr_mult: 0
   }
-  batch_norm_param {
-    use_global_stats: false
-  }
 }
 layer {
   name: "block_relu7"
@@ -395,9 +368,6 @@ layer {
   param {
     lr_mult: 0
   }
-  batch_norm_param {
-    use_global_stats: false
-  }
 }
 layer {
   name: "block_relu8"
@@ -433,9 +403,6 @@ layer {
   }
   param {
     lr_mult: 0
-  }
-  batch_norm_param {
-    use_global_stats: false
   }
 }
 layer {
@@ -480,16 +447,13 @@ layer {
   param {
     lr_mult: 0
   }
-  batch_norm_param {
-    use_global_stats: false
-  }
 }
 layer {
   name: "data3"
   type: "NoiseData"
   top: "data3"
   noise_data_param {
-    batch_size: 16
+    batch_size: 1
     channels: 3
     spatial_size: 64
     distribution: "uniform"
@@ -525,9 +489,6 @@ layer {
   }
   param {
     lr_mult: 0
-  }
-  batch_norm_param {
-    use_global_stats: false
   }
 }
 layer {
@@ -565,9 +526,6 @@ layer {
   param {
     lr_mult: 0
   }
-  batch_norm_param {
-    use_global_stats: false
-  }
 }
 layer {
   name: "block_relu11"
@@ -604,9 +562,6 @@ layer {
   param {
     lr_mult: 0
   }
-  batch_norm_param {
-    use_global_stats: false
-  }
 }
 layer {
   name: "block_relu12"
@@ -627,9 +582,6 @@ layer {
   }
   param {
     lr_mult: 0
-  }
-  batch_norm_param {
-    use_global_stats: false
   }
 }
 layer {
@@ -671,9 +623,6 @@ layer {
   param {
     lr_mult: 0
   }
-  batch_norm_param {
-    use_global_stats: false
-  }
 }
 layer {
   name: "block_relu13"
@@ -710,9 +659,6 @@ layer {
   param {
     lr_mult: 0
   }
-  batch_norm_param {
-    use_global_stats: false
-  }
 }
 layer {
   name: "block_relu14"
@@ -748,9 +694,6 @@ layer {
   }
   param {
     lr_mult: 0
-  }
-  batch_norm_param {
-    use_global_stats: false
   }
 }
 layer {
@@ -795,16 +738,13 @@ layer {
   param {
     lr_mult: 0
   }
-  batch_norm_param {
-    use_global_stats: false
-  }
 }
 layer {
   name: "data4"
   type: "NoiseData"
   top: "data4"
   noise_data_param {
-    batch_size: 16
+    batch_size: 1
     channels: 3
     spatial_size: 128
     distribution: "uniform"
@@ -840,9 +780,6 @@ layer {
   }
   param {
     lr_mult: 0
-  }
-  batch_norm_param {
-    use_global_stats: false
   }
 }
 layer {
@@ -880,9 +817,6 @@ layer {
   param {
     lr_mult: 0
   }
-  batch_norm_param {
-    use_global_stats: false
-  }
 }
 layer {
   name: "block_relu17"
@@ -919,9 +853,6 @@ layer {
   param {
     lr_mult: 0
   }
-  batch_norm_param {
-    use_global_stats: false
-  }
 }
 layer {
   name: "block_relu18"
@@ -942,9 +873,6 @@ layer {
   }
   param {
     lr_mult: 0
-  }
-  batch_norm_param {
-    use_global_stats: false
   }
 }
 layer {
@@ -986,9 +914,6 @@ layer {
   param {
     lr_mult: 0
   }
-  batch_norm_param {
-    use_global_stats: false
-  }
 }
 layer {
   name: "block_relu19"
@@ -1025,9 +950,6 @@ layer {
   param {
     lr_mult: 0
   }
-  batch_norm_param {
-    use_global_stats: false
-  }
 }
 layer {
   name: "block_relu20"
@@ -1063,9 +985,6 @@ layer {
   }
   param {
     lr_mult: 0
-  }
-  batch_norm_param {
-    use_global_stats: false
   }
 }
 layer {
@@ -1110,16 +1029,13 @@ layer {
   param {
     lr_mult: 0
   }
-  batch_norm_param {
-    use_global_stats: false
-  }
 }
 layer {
   name: "data5"
   type: "NoiseData"
   top: "data5"
   noise_data_param {
-    batch_size: 16
+    batch_size: 1
     channels: 3
     spatial_size: 256
     distribution: "uniform"
@@ -1155,9 +1071,6 @@ layer {
   }
   param {
     lr_mult: 0
-  }
-  batch_norm_param {
-    use_global_stats: false
   }
 }
 layer {
@@ -1195,9 +1108,6 @@ layer {
   param {
     lr_mult: 0
   }
-  batch_norm_param {
-    use_global_stats: false
-  }
 }
 layer {
   name: "block_relu23"
@@ -1234,9 +1144,6 @@ layer {
   param {
     lr_mult: 0
   }
-  batch_norm_param {
-    use_global_stats: false
-  }
 }
 layer {
   name: "block_relu24"
@@ -1257,9 +1164,6 @@ layer {
   }
   param {
     lr_mult: 0
-  }
-  batch_norm_param {
-    use_global_stats: false
   }
 }
 layer {
@@ -1301,9 +1205,6 @@ layer {
   param {
     lr_mult: 0
   }
-  batch_norm_param {
-    use_global_stats: false
-  }
 }
 layer {
   name: "block_relu25"
@@ -1339,9 +1240,6 @@ layer {
   }
   param {
     lr_mult: 0
-  }
-  batch_norm_param {
-    use_global_stats: false
   }
 }
 layer {
@@ -1379,9 +1277,6 @@ layer {
   param {
     lr_mult: 0
   }
-  batch_norm_param {
-    use_global_stats: false
-  }
 }
 layer {
   name: "block_relu27"
@@ -1417,9 +1312,6 @@ layer {
   }
   param {
     lr_mult: 0
-  }
-  batch_norm_param {
-    use_global_stats: false
   }
 }
 layer {
@@ -1469,7 +1361,7 @@ layer {
   top: "target1_1"
   input_param {
     shape {
-      dim: 16
+      dim: 1
       dim: 4096
     }
   }
@@ -1557,7 +1449,7 @@ layer {
   top: "target2_1"
   input_param {
     shape {
-      dim: 16
+      dim: 1
       dim: 16384
     }
   }
@@ -1645,7 +1537,7 @@ layer {
   top: "target3_1"
   input_param {
     shape {
-      dim: 16
+      dim: 1
       dim: 65536
     }
   }
@@ -1783,7 +1675,7 @@ layer {
   top: "target4_1"
   input_param {
     shape {
-      dim: 16
+      dim: 1
       dim: 262144
     }
   }
@@ -1794,289 +1686,5 @@ layer {
   bottom: "gram4_1"
   bottom: "target4_1"
   top: "euclidean_loss4_1"
-}
-layer {
-  name: "conv4_2"
-  type: "Convolution"
-  bottom: "conv4_1"
-  top: "conv4_2"
-  param {
-    lr_mult: 0
-    decay_mult: 0
-  }
-  param {
-    lr_mult: 0
-    decay_mult: 0
-  }
-  convolution_param {
-    num_output: 512
-    pad: 1
-    kernel_size: 3
-  }
-}
-layer {
-  name: "relu4_2"
-  type: "ReLU"
-  bottom: "conv4_2"
-  top: "conv4_2"
-}
-layer {
-  name: "conv4_3"
-  type: "Convolution"
-  bottom: "conv4_2"
-  top: "conv4_3"
-  param {
-    lr_mult: 0
-    decay_mult: 0
-  }
-  param {
-    lr_mult: 0
-    decay_mult: 0
-  }
-  convolution_param {
-    num_output: 512
-    pad: 1
-    kernel_size: 3
-  }
-}
-layer {
-  name: "relu4_3"
-  type: "ReLU"
-  bottom: "conv4_3"
-  top: "conv4_3"
-}
-layer {
-  name: "conv4_4"
-  type: "Convolution"
-  bottom: "conv4_3"
-  top: "conv4_4"
-  param {
-    lr_mult: 0
-    decay_mult: 0
-  }
-  param {
-    lr_mult: 0
-    decay_mult: 0
-  }
-  convolution_param {
-    num_output: 512
-    pad: 1
-    kernel_size: 3
-  }
-}
-layer {
-  name: "relu4_4"
-  type: "ReLU"
-  bottom: "conv4_4"
-  top: "conv4_4"
-}
-layer {
-  name: "pool4"
-  type: "Pooling"
-  bottom: "conv4_4"
-  top: "pool4"
-  pooling_param {
-    pool: MAX
-    kernel_size: 2
-    stride: 2
-  }
-}
-layer {
-  name: "conv5_1"
-  type: "Convolution"
-  bottom: "pool4"
-  top: "conv5_1"
-  param {
-    lr_mult: 0
-    decay_mult: 0
-  }
-  param {
-    lr_mult: 0
-    decay_mult: 0
-  }
-  convolution_param {
-    num_output: 512
-    pad: 1
-    kernel_size: 3
-  }
-}
-layer {
-  name: "relu5_1"
-  type: "ReLU"
-  bottom: "conv5_1"
-  top: "conv5_1"
-}
-layer {
-  name: "conv5_2"
-  type: "Convolution"
-  bottom: "conv5_1"
-  top: "conv5_2"
-  param {
-    lr_mult: 0
-    decay_mult: 0
-  }
-  param {
-    lr_mult: 0
-    decay_mult: 0
-  }
-  convolution_param {
-    num_output: 512
-    pad: 1
-    kernel_size: 3
-  }
-}
-layer {
-  name: "relu5_2"
-  type: "ReLU"
-  bottom: "conv5_2"
-  top: "conv5_2"
-}
-layer {
-  name: "conv5_3"
-  type: "Convolution"
-  bottom: "conv5_2"
-  top: "conv5_3"
-  param {
-    lr_mult: 0
-    decay_mult: 0
-  }
-  param {
-    lr_mult: 0
-    decay_mult: 0
-  }
-  convolution_param {
-    num_output: 512
-    pad: 1
-    kernel_size: 3
-  }
-}
-layer {
-  name: "relu5_3"
-  type: "ReLU"
-  bottom: "conv5_3"
-  top: "conv5_3"
-}
-layer {
-  name: "conv5_4"
-  type: "Convolution"
-  bottom: "conv5_3"
-  top: "conv5_4"
-  param {
-    lr_mult: 0
-    decay_mult: 0
-  }
-  param {
-    lr_mult: 0
-    decay_mult: 0
-  }
-  convolution_param {
-    num_output: 512
-    pad: 1
-    kernel_size: 3
-  }
-}
-layer {
-  name: "relu5_4"
-  type: "ReLU"
-  bottom: "conv5_4"
-  top: "conv5_4"
-}
-layer {
-  name: "pool5"
-  type: "Pooling"
-  bottom: "conv5_4"
-  top: "pool5"
-  pooling_param {
-    pool: MAX
-    kernel_size: 2
-    stride: 2
-  }
-}
-layer {
-  name: "fc6"
-  type: "InnerProduct"
-  bottom: "pool5"
-  top: "fc6"
-  param {
-    lr_mult: 0
-    decay_mult: 0
-  }
-  param {
-    lr_mult: 0
-    decay_mult: 0
-  }
-  inner_product_param {
-    num_output: 4096
-  }
-}
-layer {
-  name: "relu6"
-  type: "ReLU"
-  bottom: "fc6"
-  top: "fc6"
-}
-layer {
-  name: "drop6"
-  type: "Dropout"
-  bottom: "fc6"
-  top: "drop6"
-  dropout_param {
-    dropout_ratio: 0.5
-  }
-}
-layer {
-  name: "fc7"
-  type: "InnerProduct"
-  bottom: "drop6"
-  top: "fc7"
-  param {
-    lr_mult: 0
-    decay_mult: 0
-  }
-  param {
-    lr_mult: 0
-    decay_mult: 0
-  }
-  inner_product_param {
-    num_output: 4096
-  }
-}
-layer {
-  name: "relu7"
-  type: "ReLU"
-  bottom: "fc7"
-  top: "fc7"
-}
-layer {
-  name: "drop7"
-  type: "Dropout"
-  bottom: "fc7"
-  top: "drop7"
-  dropout_param {
-    dropout_ratio: 0.5
-  }
-}
-layer {
-  name: "fc8"
-  type: "InnerProduct"
-  bottom: "drop7"
-  top: "fc8"
-  param {
-    lr_mult: 0
-    decay_mult: 0
-  }
-  param {
-    lr_mult: 0
-    decay_mult: 0
-  }
-  inner_product_param {
-    num_output: 1000
-  }
-}
-layer {
-  name: "prob1"
-  type: "Softmax"
-  bottom: "fc8"
-  top: "prob1"
 }
 

@@ -18,7 +18,7 @@ def generate():
     ns = caffe.NetSpec()
     
     data_key = 'data' + str(data_counter)   
-    data = {data_key: L.NoiseData(batch_size=16,
+    data = {data_key: L.NoiseData(batch_size=1,
                                   spatial_size=256/ratios[i],
                                   channels=3,
                                   min=-1,
