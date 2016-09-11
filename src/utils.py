@@ -68,16 +68,36 @@ def join(ns_small, bottom_small, ns_large, bottom_large, num_output, id):
 
   return join, top
 
-def conv_relu(bottom, num_output, k, id):
+def conv_relu(bottom, num_output, k, learnable, id):
   # A convolution followed by a RelU
-  conv = L.Convolution(bottom, convolution_param={'kernel_size': k,
-                                                  'num_output': num_output,
-                                                  'pad': 1})
+  if learnable:
+    if type(bottom) is str:
+      conv = L.Convolution(bottom=bottom, convolution_param={'kernel_size': k,
+                                                             'num_output': num_output,
+                                                             'pad': 1})
+    else:
+      conv = L.Convolution(bottom, convolution_param={'kernel_size': k,
+                                                             'num_output': num_output,
+                                                             'pad': 1})
+  else:
+    if type(bottom) is str:
+      conv = L.Convolution(bottom=bottom,
+                           param=[{'lr_mult': 0, 'decay_mult': 0},{'lr_mult': 0, 'decay_mult': 0}],
+                           convolution_param={'kernel_size': k,
+                                              'num_output': num_output,
+                                              'pad': 1})
+    else:
+      conv = L.Convolution(bottom,
+                           param=[{'lr_mult': 0, 'decay_mult': 0},{'lr_mult': 0, 'decay_mult': 0}],
+                           convolution_param={'kernel_size': k,
+                                              'num_output': num_output,
+                                              'pad': 1})
+
   relu = L.ReLU(conv, in_place=True)
   
-  conv_relu = OrderedDict([('conv' + id, conv), ('conv_relu' + id, relu)])
+  conv_relu = OrderedDict([('conv' + id, conv), ('relu' + id, relu)])
 
-  top = conv_relu['conv_relu' + id]
+  top = conv_relu['relu' + id]
 
   return conv_relu, top
 
@@ -89,21 +109,31 @@ def max_pool(bottom, stride, k, id):
   return pool, top
 
 # named fc_ to avoid function name conflict with whatever was causing it
-def fc_(bottom, num_output, id):
-  fc = {'fc' + id: L.InnerProduct(bottom, inner_product_param={'num_output': num_output})}
-  
+def fc_(bottom, num_output, learnable, id):
+  if learnable:
+    fc = {'fc' + id: L.InnerProduct(bottom, inner_product_param={'num_output': num_output})}
+  else:
+    fc = {'fc' + id: L.InnerProduct(bottom,
+                                    param=[{'lr_mult': 0, 'decay_mult': 0},{'lr_mult': 0, 'decay_mult': 0}],
+                                    inner_product_param={'num_output': num_output})}
+
   top = fc['fc' + id]
 
   return fc, top
 
-def fc_relu_drop(bottom, num_output, ratio, id):
-  fc = L.InnerProduct(bottom, inner_product_param={'num_output': num_output})
+def fc_relu_drop(bottom, num_output, ratio, learnable, id):
+  if learnable:
+    fc = L.InnerProduct(bottom, inner_product_param={'num_output': num_output})
+  else:
+    fc = L.InnerProduct(bottom,
+                        param=[{'lr_mult': 0, 'decay_mult': 0},{'lr_mult': 0, 'decay_mult': 0}],
+                        inner_product_param={'num_output': num_output})
   relu = L.ReLU(fc, in_place=True)
   drop = L.Dropout(relu, dropout_param={'dropout_ratio': ratio})
 
-  fc_relu_drop = OrderedDict([('fc' + id, fc), ('fc_relu' + id, relu), ('fc_drop' + id, drop)])
+  fc_relu_drop = OrderedDict([('fc' + id, fc), ('relu' + id, relu), ('drop' + id, drop)])
 
-  top = fc_relu_drop['fc_drop' + id]
+  top = fc_relu_drop['drop' + id]
 
   return fc_relu_drop, top
 

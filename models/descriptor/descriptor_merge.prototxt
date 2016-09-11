@@ -1,20 +1,7 @@
 layer {
-  name: "input1"
-  type: "Input"
-  top: "input1"
-  input_param {
-    shape {
-      dim: 16
-      dim: 3
-      dim: 256
-      dim: 256
-    }
-  }
-}
-layer {
   name: "conv1_1"
   type: "Convolution"
-  bottom: "input1"
+  bottom: "block_bn28"
   top: "conv1_1"
   param {
     lr_mult: 0

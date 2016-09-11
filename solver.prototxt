@@ -1,0 +1,22 @@
+# The train/test net protocol buffer definition
+net: "./models/merged/merged.prototxt"
+
+# optimization method
+type: "Adam" 
+
+# max_iter specifies the number of training iterations
+max_iter: 1000
+
+# The base learning rate of the network.
+base_lr: 0.001
+
+# The learning rate policy
+lr_policy: "step"
+gamma: 0.8
+stepsize: 2000
+
+# Display every 100 iterations
+display: 50
+
+# solver mode: CPU or GPU
+solver_mode: GPU
