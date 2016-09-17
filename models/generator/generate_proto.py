@@ -21,7 +21,7 @@ def generate():
     data = {data_key: L.NoiseData(batch_size=1,
                                   spatial_size=256/ratios[i],
                                   channels=3,
-                                  min=-1,
+                                  min=0,
                                   max=1,
                                   distribution='uniform')}
     data_counter = append(ns, data, data_counter)

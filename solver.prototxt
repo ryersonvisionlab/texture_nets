@@ -5,17 +5,17 @@ net: "./models/merged/merged.prototxt"
 type: "Adam" 
 
 # max_iter specifies the number of training iterations
-max_iter: 1000
+max_iter: 2000
 
 # The base learning rate of the network.
-base_lr: 0.001
+base_lr: 0.1
 
 # The learning rate policy
 lr_policy: "step"
-gamma: 0.8
-stepsize: 2000
+gamma: 0.7
+stepsize: 1000
 
-# Display every 100 iterations
+# Display every 50 iterations
 display: 50
 
 # solver mode: CPU or GPU

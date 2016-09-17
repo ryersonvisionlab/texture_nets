@@ -39,7 +39,7 @@ def generate(bottom=None):
       conv_relu_counter = append(ns, cr, conv_relu_counter)
 
       # attach texture loss (after relu1_1, relu2_1)
-      loss, _ = texture_loss(top, [1,num_output**2], True, str(i) + '_1')
+      loss, _ = texture_loss(top, [1,num_output**2], False, str(i) + '_1')
       txt_loss_counter = append(ns, loss, txt_loss_counter)
 
       # convi_2, relui_2
@@ -63,7 +63,7 @@ def generate(bottom=None):
 
       if i <= 4:
         # attach texture loss (after relu3_1, relu4_1)
-        loss, _ = texture_loss(top, [1,num_output**2], True, str(i) + '_1')
+        loss, _ = texture_loss(top, [1,num_output**2], False, str(i) + '_1')
         txt_loss_counter = append(ns, loss, txt_loss_counter)
       
       if i == 3:

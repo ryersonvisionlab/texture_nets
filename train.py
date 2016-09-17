@@ -10,6 +10,7 @@ descriptor = caffe.Net('./models/descriptor/descriptor.prototxt', caffe.TRAIN)
 texture_net_solver = caffe.get_solver('./solver.prototxt') # generator + descriptor
 
 # fine-tune on VGG portion (descriptor) of texture_net
+descriptor.copy_from('./models/descriptor/vgg_normalised.caffemodel')
 texture_net_solver.net.copy_from('./models/descriptor/vgg_normalised.caffemodel')
 
 # load input and configure preprocessing

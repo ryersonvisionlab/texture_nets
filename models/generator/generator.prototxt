@@ -7,7 +7,7 @@ layer {
     channels: 3
     spatial_size: 16
     distribution: "uniform"
-    min: -1
+    min: 0
     max: 1
   }
 }
@@ -165,7 +165,7 @@ layer {
     channels: 3
     spatial_size: 32
     distribution: "uniform"
-    min: -1
+    min: 0
     max: 1
   }
 }
@@ -456,7 +456,7 @@ layer {
     channels: 3
     spatial_size: 64
     distribution: "uniform"
-    min: -1
+    min: 0
     max: 1
   }
 }
@@ -747,7 +747,7 @@ layer {
     channels: 3
     spatial_size: 128
     distribution: "uniform"
-    min: -1
+    min: 0
     max: 1
   }
 }
@@ -1038,7 +1038,7 @@ layer {
     channels: 3
     spatial_size: 256
     distribution: "uniform"
-    min: -1
+    min: 0
     max: 1
   }
 }

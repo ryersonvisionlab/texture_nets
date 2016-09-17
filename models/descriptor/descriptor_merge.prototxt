@@ -29,7 +29,7 @@ layer {
   bottom: "conv1_1"
   top: "gram1_1"
   gramian_param {
-    normalize_output: true
+    normalize_output: false
   }
 }
 layer {
@@ -117,7 +117,7 @@ layer {
   bottom: "conv2_1"
   top: "gram2_1"
   gramian_param {
-    normalize_output: true
+    normalize_output: false
   }
 }
 layer {
@@ -205,7 +205,7 @@ layer {
   bottom: "conv3_1"
   top: "gram3_1"
   gramian_param {
-    normalize_output: true
+    normalize_output: false
   }
 }
 layer {
@@ -343,7 +343,7 @@ layer {
   bottom: "conv4_1"
   top: "gram4_1"
   gramian_param {
-    normalize_output: true
+    normalize_output: false
   }
 }
 layer {

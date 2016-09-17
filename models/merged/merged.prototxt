@@ -8,7 +8,7 @@ layer {
     channels: 3
     spatial_size: 16
     distribution: "uniform"
-    min: -1
+    min: 0
     max: 1
   }
 }
@@ -166,7 +166,7 @@ layer {
     channels: 3
     spatial_size: 32
     distribution: "uniform"
-    min: -1
+    min: 0
     max: 1
   }
 }
@@ -457,7 +457,7 @@ layer {
     channels: 3
     spatial_size: 64
     distribution: "uniform"
-    min: -1
+    min: 0
     max: 1
   }
 }
@@ -748,7 +748,7 @@ layer {
     channels: 3
     spatial_size: 128
     distribution: "uniform"
-    min: -1
+    min: 0
     max: 1
   }
 }
@@ -1039,7 +1039,7 @@ layer {
     channels: 3
     spatial_size: 256
     distribution: "uniform"
-    min: -1
+    min: 0
     max: 1
   }
 }
@@ -1352,7 +1352,7 @@ layer {
   bottom: "conv1_1"
   top: "gram1_1"
   gramian_param {
-    normalize_output: true
+    normalize_output: false
   }
 }
 layer {
@@ -1440,7 +1440,7 @@ layer {
   bottom: "conv2_1"
   top: "gram2_1"
   gramian_param {
-    normalize_output: true
+    normalize_output: false
   }
 }
 layer {
@@ -1528,7 +1528,7 @@ layer {
   bottom: "conv3_1"
   top: "gram3_1"
   gramian_param {
-    normalize_output: true
+    normalize_output: false
   }
 }
 layer {
@@ -1666,7 +1666,7 @@ layer {
   bottom: "conv4_1"
   top: "gram4_1"
   gramian_param {
-    normalize_output: true
+    normalize_output: false
   }
 }
 layer {
