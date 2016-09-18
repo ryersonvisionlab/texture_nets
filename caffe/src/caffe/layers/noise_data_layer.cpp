@@ -38,13 +38,11 @@ void NoiseDataLayer<Dtype>::DataLayerSetUp(const vector<Blob<Dtype>*>& bottom,
   // Sync with added_data on gpu
   #ifdef CPU_ONLY
   added_data_.cpu_data();
-  std::cout << "Data layer set up. Using CPU version.\n";
   #endif
 
   // Sync with added_data on cpu
   #ifndef CPU_ONLY
   added_data_.gpu_data();
-  std::cout << "Data layer set up. Using GPU version.\n";
   #endif
 }
 
@@ -74,11 +72,9 @@ void NoiseDataLayer<Dtype>::AddNoiseBlob() {
   // Some checks and pointer transferring
   #ifdef CPU_ONLY
   Dtype* top_data = added_data_.mutable_cpu_data();
-  std::cout << "Noise added. Using CPU version.\n";
   #endif
   #ifndef CPU_ONLY
   Dtype* top_data = added_data_.mutable_gpu_data();
-  std::cout << "Noise added. Using GPU version.\n";
   #endif
   Reset(top_data);
 }
