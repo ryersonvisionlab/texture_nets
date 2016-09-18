@@ -36,7 +36,16 @@ void NoiseDataLayer<Dtype>::DataLayerSetUp(const vector<Blob<Dtype>*>& bottom,
   data_ = NULL;
   
   // Sync with added_data on gpu
+  #ifdef CPU_ONLY
   added_data_.cpu_data();
+  std::cout << "Data layer set up. Using CPU version.\n";
+  #endif
+
+  // Sync with added_data on cpu
+  #ifndef CPU_ONLY
+  added_data_.gpu_data();
+  std::cout << "Data layer set up. Using GPU version.\n";
+  #endif
 }
 
 template <typename Dtype>
@@ -47,13 +56,30 @@ void NoiseDataLayer<Dtype>::AddNoiseBlob() {
 
   // Add noise data
   if (distribution_.compare("uniform") == 0) {
+    #ifdef CPU_ONLY
     caffe_rng_uniform(added_data_.count(), Dtype(min_), Dtype(max_), added_data_.mutable_cpu_data());
+    #endif
+    #ifndef CPU_ONLY
+    caffe_gpu_rng_uniform(added_data_.count(), Dtype(min_), Dtype(max_), added_data_.mutable_cpu_data());
+    #endif
   } else if (distribution_.compare("gaussian") == 0) {
+    #ifdef CPU_ONLY
     caffe_rng_gaussian(added_data_.count(), Dtype(mu_), Dtype(sigma_), added_data_.mutable_cpu_data());
+    #endif
+    #ifndef CPU_ONLY
+    caffe_gpu_rng_gaussian(added_data_.count(), Dtype(mu_), Dtype(sigma_), added_data_.mutable_cpu_data());
+    #endif
   }
         
   // Some checks and pointer transferring
+  #ifdef CPU_ONLY
   Dtype* top_data = added_data_.mutable_cpu_data();
+  std::cout << "Noise added. Using CPU version.\n";
+  #endif
+  #ifndef CPU_ONLY
+  Dtype* top_data = added_data_.mutable_gpu_data();
+  std::cout << "Noise added. Using GPU version.\n";
+  #endif
   Reset(top_data);
 }
 
@@ -69,13 +95,17 @@ template <typename Dtype>
 void NoiseDataLayer<Dtype>::Forward_cpu(const vector<Blob<Dtype>*>& bottom,
       const vector<Blob<Dtype>*>& top) {
 
-  AddNoiseBlob();  
+  AddNoiseBlob();
 
   CHECK(data_) << "NoiseDataLayer needs to be initialized by calling Reset";
   
   top[0]->Reshape(batch_size_, channels_, spatial_size_, spatial_size_);
   top[0]->set_cpu_data(data_);
 }
+
+#ifdef CPU_ONLY
+STUB_GPU(NoiseDataLayer);
+#endif
 
 INSTANTIATE_CLASS(NoiseDataLayer);
 REGISTER_LAYER_CLASS(NoiseData);
