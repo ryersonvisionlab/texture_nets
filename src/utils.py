@@ -22,7 +22,8 @@ def block(bottom, num_output, k, id):
                                                         'num_output': num_output,
                                                         'pad': (k-1)/2,
                                                         'weight_filler': {
-                                                          'type': 'xavier'
+                                                          'type': 'msra',
+                                                          'variance_norm': P.Filler.AVERAGE
                                                         }})
   block_bn = L.BatchNorm(block_conv, param=[{'lr_mult': 0},{'lr_mult': 0},{'lr_mult': 0}])
   block_relu = L.ReLU(block_bn, in_place=True)

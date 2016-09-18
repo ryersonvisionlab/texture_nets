@@ -34,4 +34,4 @@ texture_net_solver.net.blobs['target3_1'].data[...] = descriptor.blobs['gram3_1'
 texture_net_solver.net.blobs['target4_1'].data[...] = descriptor.blobs['gram4_1'].data[...]
 
 # learn texture
-texture_net_solver.solve()
+#texture_net_solver.solve()

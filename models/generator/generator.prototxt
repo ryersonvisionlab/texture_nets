@@ -22,7 +22,8 @@ layer {
     kernel_size: 3
     stride: 1
     weight_filler {
-      type: "xavier"
+      type: "msra"
+      variance_norm: AVERAGE
     }
   }
 }
@@ -58,7 +59,8 @@ layer {
     kernel_size: 3
     stride: 1
     weight_filler {
-      type: "xavier"
+      type: "msra"
+      variance_norm: AVERAGE
     }
   }
 }
@@ -94,7 +96,8 @@ layer {
     kernel_size: 1
     stride: 1
     weight_filler {
-      type: "xavier"
+      type: "msra"
+      variance_norm: AVERAGE
     }
   }
 }
@@ -180,7 +183,8 @@ layer {
     kernel_size: 3
     stride: 1
     weight_filler {
-      type: "xavier"
+      type: "msra"
+      variance_norm: AVERAGE
     }
   }
 }
@@ -216,7 +220,8 @@ layer {
     kernel_size: 3
     stride: 1
     weight_filler {
-      type: "xavier"
+      type: "msra"
+      variance_norm: AVERAGE
     }
   }
 }
@@ -252,7 +257,8 @@ layer {
     kernel_size: 1
     stride: 1
     weight_filler {
-      type: "xavier"
+      type: "msra"
+      variance_norm: AVERAGE
     }
   }
 }
@@ -313,7 +319,8 @@ layer {
     kernel_size: 3
     stride: 1
     weight_filler {
-      type: "xavier"
+      type: "msra"
+      variance_norm: AVERAGE
     }
   }
 }
@@ -349,7 +356,8 @@ layer {
     kernel_size: 3
     stride: 1
     weight_filler {
-      type: "xavier"
+      type: "msra"
+      variance_norm: AVERAGE
     }
   }
 }
@@ -385,7 +393,8 @@ layer {
     kernel_size: 1
     stride: 1
     weight_filler {
-      type: "xavier"
+      type: "msra"
+      variance_norm: AVERAGE
     }
   }
 }
@@ -471,7 +480,8 @@ layer {
     kernel_size: 3
     stride: 1
     weight_filler {
-      type: "xavier"
+      type: "msra"
+      variance_norm: AVERAGE
     }
   }
 }
@@ -507,7 +517,8 @@ layer {
     kernel_size: 3
     stride: 1
     weight_filler {
-      type: "xavier"
+      type: "msra"
+      variance_norm: AVERAGE
     }
   }
 }
@@ -543,7 +554,8 @@ layer {
     kernel_size: 1
     stride: 1
     weight_filler {
-      type: "xavier"
+      type: "msra"
+      variance_norm: AVERAGE
     }
   }
 }
@@ -604,7 +616,8 @@ layer {
     kernel_size: 3
     stride: 1
     weight_filler {
-      type: "xavier"
+      type: "msra"
+      variance_norm: AVERAGE
     }
   }
 }
@@ -640,7 +653,8 @@ layer {
     kernel_size: 3
     stride: 1
     weight_filler {
-      type: "xavier"
+      type: "msra"
+      variance_norm: AVERAGE
     }
   }
 }
@@ -676,7 +690,8 @@ layer {
     kernel_size: 1
     stride: 1
     weight_filler {
-      type: "xavier"
+      type: "msra"
+      variance_norm: AVERAGE
     }
   }
 }
@@ -762,7 +777,8 @@ layer {
     kernel_size: 3
     stride: 1
     weight_filler {
-      type: "xavier"
+      type: "msra"
+      variance_norm: AVERAGE
     }
   }
 }
@@ -798,7 +814,8 @@ layer {
     kernel_size: 3
     stride: 1
     weight_filler {
-      type: "xavier"
+      type: "msra"
+      variance_norm: AVERAGE
     }
   }
 }
@@ -834,7 +851,8 @@ layer {
     kernel_size: 1
     stride: 1
     weight_filler {
-      type: "xavier"
+      type: "msra"
+      variance_norm: AVERAGE
     }
   }
 }
@@ -895,7 +913,8 @@ layer {
     kernel_size: 3
     stride: 1
     weight_filler {
-      type: "xavier"
+      type: "msra"
+      variance_norm: AVERAGE
     }
   }
 }
@@ -931,7 +950,8 @@ layer {
     kernel_size: 3
     stride: 1
     weight_filler {
-      type: "xavier"
+      type: "msra"
+      variance_norm: AVERAGE
     }
   }
 }
@@ -967,7 +987,8 @@ layer {
     kernel_size: 1
     stride: 1
     weight_filler {
-      type: "xavier"
+      type: "msra"
+      variance_norm: AVERAGE
     }
   }
 }
@@ -1053,7 +1074,8 @@ layer {
     kernel_size: 3
     stride: 1
     weight_filler {
-      type: "xavier"
+      type: "msra"
+      variance_norm: AVERAGE
     }
   }
 }
@@ -1089,7 +1111,8 @@ layer {
     kernel_size: 3
     stride: 1
     weight_filler {
-      type: "xavier"
+      type: "msra"
+      variance_norm: AVERAGE
     }
   }
 }
@@ -1125,7 +1148,8 @@ layer {
     kernel_size: 1
     stride: 1
     weight_filler {
-      type: "xavier"
+      type: "msra"
+      variance_norm: AVERAGE
     }
   }
 }
@@ -1186,7 +1210,8 @@ layer {
     kernel_size: 3
     stride: 1
     weight_filler {
-      type: "xavier"
+      type: "msra"
+      variance_norm: AVERAGE
     }
   }
 }
@@ -1222,7 +1247,8 @@ layer {
     kernel_size: 3
     stride: 1
     weight_filler {
-      type: "xavier"
+      type: "msra"
+      variance_norm: AVERAGE
     }
   }
 }
@@ -1258,7 +1284,8 @@ layer {
     kernel_size: 1
     stride: 1
     weight_filler {
-      type: "xavier"
+      type: "msra"
+      variance_norm: AVERAGE
     }
   }
 }
@@ -1294,7 +1321,8 @@ layer {
     kernel_size: 1
     stride: 1
     weight_filler {
-      type: "xavier"
+      type: "msra"
+      variance_norm: AVERAGE
     }
   }
 }
