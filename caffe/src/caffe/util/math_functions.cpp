@@ -163,6 +163,20 @@ void caffe_mul<double>(const int n, const double* a, const double* b,
 }
 
 template <>
+void caffe_div_scalar(const int N, const float alpha, float* Y) {
+  for (int i = 0; i < N; ++i) {
+    Y[i] /= alpha;
+  }
+}
+
+template <>
+void caffe_div_scalar(const int N, const double alpha, double* Y) {
+  for (int i = 0; i < N; ++i) {
+    Y[i] /= alpha;
+  }
+}
+
+template <>
 void caffe_div<float>(const int n, const float* a, const float* b,
     float* y) {
   vsDiv(n, a, b, y);

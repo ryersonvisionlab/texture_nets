@@ -256,6 +256,27 @@ void caffe_gpu_mul<double>(const int N, const double* a,
 }
 
 template <typename Dtype>
+__global__ void div_scalar_kernel(const int n, const Dtype alpha, Dtype* y) {
+  CUDA_KERNEL_LOOP(index, n) {
+    y[index] /= alpha;
+  }
+}
+
+template <>
+void caffe_gpu_div_scalar(const int N, const float alpha, float* Y) {
+  // NOLINT_NEXT_LINE(whitespace/operators)
+  div_scalar_kernel<float><<<CAFFE_GET_BLOCKS(N), CAFFE_CUDA_NUM_THREADS>>>(
+      N, alpha, Y);
+}
+
+template <>
+void caffe_gpu_div_scalar(const int N, const double alpha, double* Y) {
+  // NOLINT_NEXT_LINE(whitespace/operators)
+  div_scalar_kernel<double><<<CAFFE_GET_BLOCKS(N), CAFFE_CUDA_NUM_THREADS>>>(
+      N, alpha, Y);
+}
+
+template <typename Dtype>
 __global__ void div_kernel(const int n, const Dtype* a,
     const Dtype* b, Dtype* y) {
   CUDA_KERNEL_LOOP(index, n) {

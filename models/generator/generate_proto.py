@@ -6,19 +6,20 @@ from utils import *
 
 def generate():
   # generate the generator prototxt
-  ratios = [16, 8, 4, 2, 1]
+  ratios = [32, 16, 8, 4, 2, 1]
   conv_num = 8
   
-  conv_block_counter = 1;
-  data_counter = 1;
-  join_block_counter = 1;
+  conv_block_counter = 1
+  data_counter = 1
+  join_block_counter = 1
+  conv_counter = 1
 
   for i in range(0, len(ratios)):
 
     ns = caffe.NetSpec()
     
     data_key = 'data' + str(data_counter)   
-    data = {data_key: L.NoiseData(batch_size=1,
+    data = {data_key: L.NoiseData(batch_size=10,
                                   spatial_size=256/ratios[i],
                                   channels=3,
                                   min=0,
@@ -53,8 +54,8 @@ def generate():
       conv_block_counter = append(cur, conv_block, conv_block_counter)
 
       if i == len(ratios)-1:
-        conv_block, cur_top = block(cur_top, 3, 1, str(conv_block_counter))
-        conv_block_counter = append(cur, conv_block, conv_block_counter)
+        just_conv, cur_top = conv(cur_top, 3, 1, str(conv_counter)) # I really need to clean everything up
+        conv_counter = append(cur, just_conv, conv_counter)
    
   ns = cur
 

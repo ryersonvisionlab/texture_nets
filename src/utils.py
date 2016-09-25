@@ -24,9 +24,13 @@ def block(bottom, num_output, k, id):
                                                         'weight_filler': {
                                                           'type': 'msra',
                                                           'variance_norm': P.Filler.AVERAGE
+                                                        },
+                                                        'bias_filler': {
+                                                          'type': 'msra',
+                                                          'variance_norm': P.Filler.AVERAGE
                                                         }})
   block_bn = L.BatchNorm(block_conv, param=[{'lr_mult': 0},{'lr_mult': 0},{'lr_mult': 0}])
-  block_relu = L.ReLU(block_bn, in_place=True)
+  block_relu = L.ReLU(block_bn, relu_param={'negative_slope': 0.01}, in_place=True)
   
   block = OrderedDict([('block_conv' + id, block_conv), ('block_bn' + id, block_bn), ('block_relu' + id, block_relu)])
    
@@ -34,6 +38,7 @@ def block(bottom, num_output, k, id):
 
   return block, top
 
+# TODO: remove bottom= from L.Concat
 def join(ns_small, bottom_small, ns_large, bottom_large, num_output, id):
   # Joining two tensors (a smaller scale tensor with a larger scale tensor) by:
   #  Smaller tensor:
@@ -63,36 +68,56 @@ def join(ns_small, bottom_small, ns_large, bottom_large, num_output, id):
   append(ns_small, OrderedDict([('join_small_nnup' + id, join_small_nnup), ('join_small_bn' + id, join_small_bn)]))
   append(ns_large, {'join_large_bn' + id: join_large_bn}) 
 
-  join['join_concat' + id] = L.Concat(bottom=['join_small_bn' + id, 'join_large_bn' + id], concat_param={'axis': 1})
+  join['join_concat' + id] = L.Concat(join_small_bn, join_large_bn, concat_param={'axis': 1})
   
   top = join['join_concat' + id]
 
   return join, top
 
+def conv(bottom, num_output, k, id):
+  conv = {'conv' + id : L.Convolution(bottom,
+                                      convolution_param={'kernel_size': k,
+                                                         'stride': 1,
+                                                         'num_output': num_output,
+                                                         'pad': (k-1)/2,
+                                                         'weight_filler': {
+                                                           'type': 'msra',
+                                                           'variance_norm': P.Filler.AVERAGE
+                                                         },
+                                                         'bias_filler': {
+                                                           'type': 'msra',
+                                                           'variance_norm': P.Filler.AVERAGE
+                                                         }})}
+  top = conv['conv' + id]
+  
+  return conv, top
+
+
+# TODO: Clean up the messy bottom flow control ugh
 def conv_relu(bottom, num_output, k, learnable, id):
   # A convolution followed by a RelU
   if learnable:
     if type(bottom) is str:
       conv = L.Convolution(bottom=bottom, convolution_param={'kernel_size': k,
                                                              'num_output': num_output,
-                                                             'pad': 1})
+                                                             'pad': 0})
     else:
       conv = L.Convolution(bottom, convolution_param={'kernel_size': k,
                                                              'num_output': num_output,
-                                                             'pad': 1})
+                                                             'pad': 0})
   else:
     if type(bottom) is str:
       conv = L.Convolution(bottom=bottom,
                            param=[{'lr_mult': 0, 'decay_mult': 0},{'lr_mult': 0, 'decay_mult': 0}],
                            convolution_param={'kernel_size': k,
                                               'num_output': num_output,
-                                              'pad': 1})
+                                              'pad': 0})
     else:
       conv = L.Convolution(bottom,
                            param=[{'lr_mult': 0, 'decay_mult': 0},{'lr_mult': 0, 'decay_mult': 0}],
                            convolution_param={'kernel_size': k,
                                               'num_output': num_output,
-                                              'pad': 1})
+                                              'pad': 0})
 
   relu = L.ReLU(conv, in_place=True)
   
@@ -148,15 +173,26 @@ def softmax(bottom, id):
 def texture_loss(bottom, target_dim, norm, id):
   gramian = L.Gramian(bottom, gramian_param={'normalize_output': norm})
   _, target = input(target_dim, id)
-  euclidean_loss = L.EuclideanLoss(bottom=['gram' + id, 'target' + id])
+  euclidean_loss = L.EuclideanLoss(gramian, target)
   
   texture_loss = OrderedDict([('gram' + id, gramian), 
-                              ('target' + id, target),
-                              ('euclidean_loss' + id, euclidean_loss)])
+                              ('texture_target' + id, target),
+                              ('texture_loss' + id, euclidean_loss)])
 
-  top = texture_loss['euclidean_loss' + id]
+  top = texture_loss['texture_loss' + id]
 
   return texture_loss, top
+
+def content_loss(bottom, target_dim, id):
+  _, target = input(target_dim, id)
+  euclidean_loss = L.EuclideanLoss(bottom,target)
+  
+  content_loss = OrderedDict([('content_target' + id, target),
+                              ('content_loss' + id, euclidean_loss)])
+
+  top = content_loss['content_loss' + id]
+
+  return content_loss, top
 
 def input(dim, id):
   input = {'input' + id: L.Input(input_param={'shape': {

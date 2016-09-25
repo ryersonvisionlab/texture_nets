@@ -4,7 +4,7 @@ layer {
   top: "input1"
   input_param {
     shape {
-      dim: 1
+      dim: 10
       dim: 3
       dim: 256
       dim: 256
@@ -26,7 +26,7 @@ layer {
   }
   convolution_param {
     num_output: 64
-    pad: 1
+    pad: 0
     kernel_size: 3
   }
 }
@@ -42,26 +42,27 @@ layer {
   bottom: "conv1_1"
   top: "gram1_1"
   gramian_param {
-    normalize_output: false
+    normalize_output: true
   }
 }
 layer {
-  name: "target1_1"
+  name: "texture_target1_1"
   type: "Input"
-  top: "target1_1"
+  top: "texture_target1_1"
   input_param {
     shape {
-      dim: 1
-      dim: 4096
+      dim: 10
+      dim: 64
+      dim: 64
     }
   }
 }
 layer {
-  name: "euclidean_loss1_1"
+  name: "texture_loss1_1"
   type: "EuclideanLoss"
   bottom: "gram1_1"
-  bottom: "target1_1"
-  top: "euclidean_loss1_1"
+  bottom: "texture_target1_1"
+  top: "texture_loss1_1"
 }
 layer {
   name: "conv1_2"
@@ -78,7 +79,7 @@ layer {
   }
   convolution_param {
     num_output: 64
-    pad: 1
+    pad: 0
     kernel_size: 3
   }
 }
@@ -114,7 +115,7 @@ layer {
   }
   convolution_param {
     num_output: 128
-    pad: 1
+    pad: 0
     kernel_size: 3
   }
 }
@@ -130,26 +131,27 @@ layer {
   bottom: "conv2_1"
   top: "gram2_1"
   gramian_param {
-    normalize_output: false
+    normalize_output: true
   }
 }
 layer {
-  name: "target2_1"
+  name: "texture_target2_1"
   type: "Input"
-  top: "target2_1"
+  top: "texture_target2_1"
   input_param {
     shape {
-      dim: 1
-      dim: 16384
+      dim: 10
+      dim: 128
+      dim: 128
     }
   }
 }
 layer {
-  name: "euclidean_loss2_1"
+  name: "texture_loss2_1"
   type: "EuclideanLoss"
   bottom: "gram2_1"
-  bottom: "target2_1"
-  top: "euclidean_loss2_1"
+  bottom: "texture_target2_1"
+  top: "texture_loss2_1"
 }
 layer {
   name: "conv2_2"
@@ -166,7 +168,7 @@ layer {
   }
   convolution_param {
     num_output: 128
-    pad: 1
+    pad: 0
     kernel_size: 3
   }
 }
@@ -202,7 +204,7 @@ layer {
   }
   convolution_param {
     num_output: 256
-    pad: 1
+    pad: 0
     kernel_size: 3
   }
 }
@@ -218,26 +220,27 @@ layer {
   bottom: "conv3_1"
   top: "gram3_1"
   gramian_param {
-    normalize_output: false
+    normalize_output: true
   }
 }
 layer {
-  name: "target3_1"
+  name: "texture_target3_1"
   type: "Input"
-  top: "target3_1"
+  top: "texture_target3_1"
   input_param {
     shape {
-      dim: 1
-      dim: 65536
+      dim: 10
+      dim: 256
+      dim: 256
     }
   }
 }
 layer {
-  name: "euclidean_loss3_1"
+  name: "texture_loss3_1"
   type: "EuclideanLoss"
   bottom: "gram3_1"
-  bottom: "target3_1"
-  top: "euclidean_loss3_1"
+  bottom: "texture_target3_1"
+  top: "texture_loss3_1"
 }
 layer {
   name: "conv3_2"
@@ -254,7 +257,7 @@ layer {
   }
   convolution_param {
     num_output: 256
-    pad: 1
+    pad: 0
     kernel_size: 3
   }
 }
@@ -279,7 +282,7 @@ layer {
   }
   convolution_param {
     num_output: 256
-    pad: 1
+    pad: 0
     kernel_size: 3
   }
 }
@@ -304,7 +307,7 @@ layer {
   }
   convolution_param {
     num_output: 256
-    pad: 1
+    pad: 0
     kernel_size: 3
   }
 }
@@ -340,7 +343,7 @@ layer {
   }
   convolution_param {
     num_output: 512
-    pad: 1
+    pad: 0
     kernel_size: 3
   }
 }
@@ -356,25 +359,165 @@ layer {
   bottom: "conv4_1"
   top: "gram4_1"
   gramian_param {
-    normalize_output: false
+    normalize_output: true
   }
 }
 layer {
-  name: "target4_1"
+  name: "texture_target4_1"
   type: "Input"
-  top: "target4_1"
+  top: "texture_target4_1"
   input_param {
     shape {
-      dim: 1
-      dim: 262144
+      dim: 10
+      dim: 512
+      dim: 512
     }
   }
 }
 layer {
-  name: "euclidean_loss4_1"
+  name: "texture_loss4_1"
   type: "EuclideanLoss"
   bottom: "gram4_1"
-  bottom: "target4_1"
-  top: "euclidean_loss4_1"
+  bottom: "texture_target4_1"
+  top: "texture_loss4_1"
+}
+layer {
+  name: "conv4_2"
+  type: "Convolution"
+  bottom: "conv4_1"
+  top: "conv4_2"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 512
+    pad: 0
+    kernel_size: 3
+  }
+}
+layer {
+  name: "relu4_2"
+  type: "ReLU"
+  bottom: "conv4_2"
+  top: "conv4_2"
+}
+layer {
+  name: "conv4_3"
+  type: "Convolution"
+  bottom: "conv4_2"
+  top: "conv4_3"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 512
+    pad: 0
+    kernel_size: 3
+  }
+}
+layer {
+  name: "relu4_3"
+  type: "ReLU"
+  bottom: "conv4_3"
+  top: "conv4_3"
+}
+layer {
+  name: "conv4_4"
+  type: "Convolution"
+  bottom: "conv4_3"
+  top: "conv4_4"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 512
+    pad: 0
+    kernel_size: 3
+  }
+}
+layer {
+  name: "relu4_4"
+  type: "ReLU"
+  bottom: "conv4_4"
+  top: "conv4_4"
+}
+layer {
+  name: "pool4"
+  type: "Pooling"
+  bottom: "conv4_4"
+  top: "pool4"
+  pooling_param {
+    pool: MAX
+    kernel_size: 2
+    stride: 2
+  }
+}
+layer {
+  name: "conv5_1"
+  type: "Convolution"
+  bottom: "pool4"
+  top: "conv5_1"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 512
+    pad: 0
+    kernel_size: 3
+  }
+}
+layer {
+  name: "relu5_1"
+  type: "ReLU"
+  bottom: "conv5_1"
+  top: "conv5_1"
+}
+layer {
+  name: "gram5_1"
+  type: "Gramian"
+  bottom: "conv5_1"
+  top: "gram5_1"
+  gramian_param {
+    normalize_output: true
+  }
+}
+layer {
+  name: "texture_target5_1"
+  type: "Input"
+  top: "texture_target5_1"
+  input_param {
+    shape {
+      dim: 10
+      dim: 512
+      dim: 512
+    }
+  }
+}
+layer {
+  name: "texture_loss5_1"
+  type: "EuclideanLoss"
+  bottom: "gram5_1"
+  bottom: "texture_target5_1"
+  top: "texture_loss5_1"
 }
 

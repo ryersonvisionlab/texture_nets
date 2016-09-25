@@ -3,9 +3,9 @@ layer {
   type: "NoiseData"
   top: "data1"
   noise_data_param {
-    batch_size: 1
+    batch_size: 10
     channels: 3
-    spatial_size: 16
+    spatial_size: 8
     distribution: "uniform"
     min: 0
     max: 1
@@ -22,6 +22,10 @@ layer {
     kernel_size: 3
     stride: 1
     weight_filler {
+      type: "msra"
+      variance_norm: AVERAGE
+    }
+    bias_filler {
       type: "msra"
       variance_norm: AVERAGE
     }
@@ -47,6 +51,9 @@ layer {
   type: "ReLU"
   bottom: "block_bn1"
   top: "block_bn1"
+  relu_param {
+    negative_slope: 0.01
+  }
 }
 layer {
   name: "block_conv2"
@@ -59,6 +66,10 @@ layer {
     kernel_size: 3
     stride: 1
     weight_filler {
+      type: "msra"
+      variance_norm: AVERAGE
+    }
+    bias_filler {
       type: "msra"
       variance_norm: AVERAGE
     }
@@ -84,6 +95,9 @@ layer {
   type: "ReLU"
   bottom: "block_bn2"
   top: "block_bn2"
+  relu_param {
+    negative_slope: 0.01
+  }
 }
 layer {
   name: "block_conv3"
@@ -96,6 +110,10 @@ layer {
     kernel_size: 1
     stride: 1
     weight_filler {
+      type: "msra"
+      variance_norm: AVERAGE
+    }
+    bias_filler {
       type: "msra"
       variance_norm: AVERAGE
     }
@@ -121,6 +139,9 @@ layer {
   type: "ReLU"
   bottom: "block_bn3"
   top: "block_bn3"
+  relu_param {
+    negative_slope: 0.01
+  }
 }
 layer {
   name: "join_small_nnup1"
@@ -164,9 +185,9 @@ layer {
   type: "NoiseData"
   top: "data2"
   noise_data_param {
-    batch_size: 1
+    batch_size: 10
     channels: 3
-    spatial_size: 32
+    spatial_size: 16
     distribution: "uniform"
     min: 0
     max: 1
@@ -183,6 +204,10 @@ layer {
     kernel_size: 3
     stride: 1
     weight_filler {
+      type: "msra"
+      variance_norm: AVERAGE
+    }
+    bias_filler {
       type: "msra"
       variance_norm: AVERAGE
     }
@@ -208,6 +233,9 @@ layer {
   type: "ReLU"
   bottom: "block_bn4"
   top: "block_bn4"
+  relu_param {
+    negative_slope: 0.01
+  }
 }
 layer {
   name: "block_conv5"
@@ -220,6 +248,10 @@ layer {
     kernel_size: 3
     stride: 1
     weight_filler {
+      type: "msra"
+      variance_norm: AVERAGE
+    }
+    bias_filler {
       type: "msra"
       variance_norm: AVERAGE
     }
@@ -245,6 +277,9 @@ layer {
   type: "ReLU"
   bottom: "block_bn5"
   top: "block_bn5"
+  relu_param {
+    negative_slope: 0.01
+  }
 }
 layer {
   name: "block_conv6"
@@ -257,6 +292,10 @@ layer {
     kernel_size: 1
     stride: 1
     weight_filler {
+      type: "msra"
+      variance_norm: AVERAGE
+    }
+    bias_filler {
       type: "msra"
       variance_norm: AVERAGE
     }
@@ -282,6 +321,9 @@ layer {
   type: "ReLU"
   bottom: "block_bn6"
   top: "block_bn6"
+  relu_param {
+    negative_slope: 0.01
+  }
 }
 layer {
   name: "join_large_bn1"
@@ -322,6 +364,10 @@ layer {
       type: "msra"
       variance_norm: AVERAGE
     }
+    bias_filler {
+      type: "msra"
+      variance_norm: AVERAGE
+    }
   }
 }
 layer {
@@ -344,6 +390,9 @@ layer {
   type: "ReLU"
   bottom: "block_bn7"
   top: "block_bn7"
+  relu_param {
+    negative_slope: 0.01
+  }
 }
 layer {
   name: "block_conv8"
@@ -356,6 +405,10 @@ layer {
     kernel_size: 3
     stride: 1
     weight_filler {
+      type: "msra"
+      variance_norm: AVERAGE
+    }
+    bias_filler {
       type: "msra"
       variance_norm: AVERAGE
     }
@@ -381,6 +434,9 @@ layer {
   type: "ReLU"
   bottom: "block_bn8"
   top: "block_bn8"
+  relu_param {
+    negative_slope: 0.01
+  }
 }
 layer {
   name: "block_conv9"
@@ -393,6 +449,10 @@ layer {
     kernel_size: 1
     stride: 1
     weight_filler {
+      type: "msra"
+      variance_norm: AVERAGE
+    }
+    bias_filler {
       type: "msra"
       variance_norm: AVERAGE
     }
@@ -418,6 +478,9 @@ layer {
   type: "ReLU"
   bottom: "block_bn9"
   top: "block_bn9"
+  relu_param {
+    negative_slope: 0.01
+  }
 }
 layer {
   name: "join_small_nnup2"
@@ -461,9 +524,9 @@ layer {
   type: "NoiseData"
   top: "data3"
   noise_data_param {
-    batch_size: 1
+    batch_size: 10
     channels: 3
-    spatial_size: 64
+    spatial_size: 32
     distribution: "uniform"
     min: 0
     max: 1
@@ -480,6 +543,10 @@ layer {
     kernel_size: 3
     stride: 1
     weight_filler {
+      type: "msra"
+      variance_norm: AVERAGE
+    }
+    bias_filler {
       type: "msra"
       variance_norm: AVERAGE
     }
@@ -505,6 +572,9 @@ layer {
   type: "ReLU"
   bottom: "block_bn10"
   top: "block_bn10"
+  relu_param {
+    negative_slope: 0.01
+  }
 }
 layer {
   name: "block_conv11"
@@ -517,6 +587,10 @@ layer {
     kernel_size: 3
     stride: 1
     weight_filler {
+      type: "msra"
+      variance_norm: AVERAGE
+    }
+    bias_filler {
       type: "msra"
       variance_norm: AVERAGE
     }
@@ -542,6 +616,9 @@ layer {
   type: "ReLU"
   bottom: "block_bn11"
   top: "block_bn11"
+  relu_param {
+    negative_slope: 0.01
+  }
 }
 layer {
   name: "block_conv12"
@@ -554,6 +631,10 @@ layer {
     kernel_size: 1
     stride: 1
     weight_filler {
+      type: "msra"
+      variance_norm: AVERAGE
+    }
+    bias_filler {
       type: "msra"
       variance_norm: AVERAGE
     }
@@ -579,6 +660,9 @@ layer {
   type: "ReLU"
   bottom: "block_bn12"
   top: "block_bn12"
+  relu_param {
+    negative_slope: 0.01
+  }
 }
 layer {
   name: "join_large_bn2"
@@ -619,6 +703,10 @@ layer {
       type: "msra"
       variance_norm: AVERAGE
     }
+    bias_filler {
+      type: "msra"
+      variance_norm: AVERAGE
+    }
   }
 }
 layer {
@@ -641,6 +729,9 @@ layer {
   type: "ReLU"
   bottom: "block_bn13"
   top: "block_bn13"
+  relu_param {
+    negative_slope: 0.01
+  }
 }
 layer {
   name: "block_conv14"
@@ -653,6 +744,10 @@ layer {
     kernel_size: 3
     stride: 1
     weight_filler {
+      type: "msra"
+      variance_norm: AVERAGE
+    }
+    bias_filler {
       type: "msra"
       variance_norm: AVERAGE
     }
@@ -678,6 +773,9 @@ layer {
   type: "ReLU"
   bottom: "block_bn14"
   top: "block_bn14"
+  relu_param {
+    negative_slope: 0.01
+  }
 }
 layer {
   name: "block_conv15"
@@ -690,6 +788,10 @@ layer {
     kernel_size: 1
     stride: 1
     weight_filler {
+      type: "msra"
+      variance_norm: AVERAGE
+    }
+    bias_filler {
       type: "msra"
       variance_norm: AVERAGE
     }
@@ -715,6 +817,9 @@ layer {
   type: "ReLU"
   bottom: "block_bn15"
   top: "block_bn15"
+  relu_param {
+    negative_slope: 0.01
+  }
 }
 layer {
   name: "join_small_nnup3"
@@ -758,9 +863,9 @@ layer {
   type: "NoiseData"
   top: "data4"
   noise_data_param {
-    batch_size: 1
+    batch_size: 10
     channels: 3
-    spatial_size: 128
+    spatial_size: 64
     distribution: "uniform"
     min: 0
     max: 1
@@ -777,6 +882,10 @@ layer {
     kernel_size: 3
     stride: 1
     weight_filler {
+      type: "msra"
+      variance_norm: AVERAGE
+    }
+    bias_filler {
       type: "msra"
       variance_norm: AVERAGE
     }
@@ -802,6 +911,9 @@ layer {
   type: "ReLU"
   bottom: "block_bn16"
   top: "block_bn16"
+  relu_param {
+    negative_slope: 0.01
+  }
 }
 layer {
   name: "block_conv17"
@@ -814,6 +926,10 @@ layer {
     kernel_size: 3
     stride: 1
     weight_filler {
+      type: "msra"
+      variance_norm: AVERAGE
+    }
+    bias_filler {
       type: "msra"
       variance_norm: AVERAGE
     }
@@ -839,6 +955,9 @@ layer {
   type: "ReLU"
   bottom: "block_bn17"
   top: "block_bn17"
+  relu_param {
+    negative_slope: 0.01
+  }
 }
 layer {
   name: "block_conv18"
@@ -851,6 +970,10 @@ layer {
     kernel_size: 1
     stride: 1
     weight_filler {
+      type: "msra"
+      variance_norm: AVERAGE
+    }
+    bias_filler {
       type: "msra"
       variance_norm: AVERAGE
     }
@@ -876,6 +999,9 @@ layer {
   type: "ReLU"
   bottom: "block_bn18"
   top: "block_bn18"
+  relu_param {
+    negative_slope: 0.01
+  }
 }
 layer {
   name: "join_large_bn3"
@@ -916,6 +1042,10 @@ layer {
       type: "msra"
       variance_norm: AVERAGE
     }
+    bias_filler {
+      type: "msra"
+      variance_norm: AVERAGE
+    }
   }
 }
 layer {
@@ -938,6 +1068,9 @@ layer {
   type: "ReLU"
   bottom: "block_bn19"
   top: "block_bn19"
+  relu_param {
+    negative_slope: 0.01
+  }
 }
 layer {
   name: "block_conv20"
@@ -950,6 +1083,10 @@ layer {
     kernel_size: 3
     stride: 1
     weight_filler {
+      type: "msra"
+      variance_norm: AVERAGE
+    }
+    bias_filler {
       type: "msra"
       variance_norm: AVERAGE
     }
@@ -975,6 +1112,9 @@ layer {
   type: "ReLU"
   bottom: "block_bn20"
   top: "block_bn20"
+  relu_param {
+    negative_slope: 0.01
+  }
 }
 layer {
   name: "block_conv21"
@@ -987,6 +1127,10 @@ layer {
     kernel_size: 1
     stride: 1
     weight_filler {
+      type: "msra"
+      variance_norm: AVERAGE
+    }
+    bias_filler {
       type: "msra"
       variance_norm: AVERAGE
     }
@@ -1012,6 +1156,9 @@ layer {
   type: "ReLU"
   bottom: "block_bn21"
   top: "block_bn21"
+  relu_param {
+    negative_slope: 0.01
+  }
 }
 layer {
   name: "join_small_nnup4"
@@ -1055,9 +1202,9 @@ layer {
   type: "NoiseData"
   top: "data5"
   noise_data_param {
-    batch_size: 1
+    batch_size: 10
     channels: 3
-    spatial_size: 256
+    spatial_size: 128
     distribution: "uniform"
     min: 0
     max: 1
@@ -1074,6 +1221,10 @@ layer {
     kernel_size: 3
     stride: 1
     weight_filler {
+      type: "msra"
+      variance_norm: AVERAGE
+    }
+    bias_filler {
       type: "msra"
       variance_norm: AVERAGE
     }
@@ -1099,6 +1250,9 @@ layer {
   type: "ReLU"
   bottom: "block_bn22"
   top: "block_bn22"
+  relu_param {
+    negative_slope: 0.01
+  }
 }
 layer {
   name: "block_conv23"
@@ -1111,6 +1265,10 @@ layer {
     kernel_size: 3
     stride: 1
     weight_filler {
+      type: "msra"
+      variance_norm: AVERAGE
+    }
+    bias_filler {
       type: "msra"
       variance_norm: AVERAGE
     }
@@ -1136,6 +1294,9 @@ layer {
   type: "ReLU"
   bottom: "block_bn23"
   top: "block_bn23"
+  relu_param {
+    negative_slope: 0.01
+  }
 }
 layer {
   name: "block_conv24"
@@ -1148,6 +1309,10 @@ layer {
     kernel_size: 1
     stride: 1
     weight_filler {
+      type: "msra"
+      variance_norm: AVERAGE
+    }
+    bias_filler {
       type: "msra"
       variance_norm: AVERAGE
     }
@@ -1173,6 +1338,9 @@ layer {
   type: "ReLU"
   bottom: "block_bn24"
   top: "block_bn24"
+  relu_param {
+    negative_slope: 0.01
+  }
 }
 layer {
   name: "join_large_bn4"
@@ -1213,6 +1381,10 @@ layer {
       type: "msra"
       variance_norm: AVERAGE
     }
+    bias_filler {
+      type: "msra"
+      variance_norm: AVERAGE
+    }
   }
 }
 layer {
@@ -1235,6 +1407,9 @@ layer {
   type: "ReLU"
   bottom: "block_bn25"
   top: "block_bn25"
+  relu_param {
+    negative_slope: 0.01
+  }
 }
 layer {
   name: "block_conv26"
@@ -1247,6 +1422,10 @@ layer {
     kernel_size: 3
     stride: 1
     weight_filler {
+      type: "msra"
+      variance_norm: AVERAGE
+    }
+    bias_filler {
       type: "msra"
       variance_norm: AVERAGE
     }
@@ -1272,6 +1451,9 @@ layer {
   type: "ReLU"
   bottom: "block_bn26"
   top: "block_bn26"
+  relu_param {
+    negative_slope: 0.01
+  }
 }
 layer {
   name: "block_conv27"
@@ -1284,6 +1466,10 @@ layer {
     kernel_size: 1
     stride: 1
     weight_filler {
+      type: "msra"
+      variance_norm: AVERAGE
+    }
+    bias_filler {
       type: "msra"
       variance_norm: AVERAGE
     }
@@ -1309,18 +1495,75 @@ layer {
   type: "ReLU"
   bottom: "block_bn27"
   top: "block_bn27"
+  relu_param {
+    negative_slope: 0.01
+  }
+}
+layer {
+  name: "join_small_nnup5"
+  type: "Deconvolution"
+  bottom: "block_bn27"
+  top: "join_small_nnup5"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 40
+    bias_term: false
+    pad: 0
+    kernel_size: 2
+    group: 40
+    stride: 2
+    weight_filler {
+      type: "constant"
+      value: 1
+    }
+  }
+}
+layer {
+  name: "join_small_bn5"
+  type: "BatchNorm"
+  bottom: "join_small_nnup5"
+  top: "join_small_bn5"
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+}
+layer {
+  name: "data6"
+  type: "NoiseData"
+  top: "data6"
+  noise_data_param {
+    batch_size: 10
+    channels: 3
+    spatial_size: 256
+    distribution: "uniform"
+    min: 0
+    max: 1
+  }
 }
 layer {
   name: "block_conv28"
   type: "Convolution"
-  bottom: "block_bn27"
+  bottom: "data6"
   top: "block_conv28"
   convolution_param {
-    num_output: 3
-    pad: 0
-    kernel_size: 1
+    num_output: 8
+    pad: 1
+    kernel_size: 3
     stride: 1
     weight_filler {
+      type: "msra"
+      variance_norm: AVERAGE
+    }
+    bias_filler {
       type: "msra"
       variance_norm: AVERAGE
     }
@@ -1346,5 +1589,273 @@ layer {
   type: "ReLU"
   bottom: "block_bn28"
   top: "block_bn28"
+  relu_param {
+    negative_slope: 0.01
+  }
+}
+layer {
+  name: "block_conv29"
+  type: "Convolution"
+  bottom: "block_bn28"
+  top: "block_conv29"
+  convolution_param {
+    num_output: 8
+    pad: 1
+    kernel_size: 3
+    stride: 1
+    weight_filler {
+      type: "msra"
+      variance_norm: AVERAGE
+    }
+    bias_filler {
+      type: "msra"
+      variance_norm: AVERAGE
+    }
+  }
+}
+layer {
+  name: "block_bn29"
+  type: "BatchNorm"
+  bottom: "block_conv29"
+  top: "block_bn29"
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+}
+layer {
+  name: "block_relu29"
+  type: "ReLU"
+  bottom: "block_bn29"
+  top: "block_bn29"
+  relu_param {
+    negative_slope: 0.01
+  }
+}
+layer {
+  name: "block_conv30"
+  type: "Convolution"
+  bottom: "block_bn29"
+  top: "block_conv30"
+  convolution_param {
+    num_output: 8
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "msra"
+      variance_norm: AVERAGE
+    }
+    bias_filler {
+      type: "msra"
+      variance_norm: AVERAGE
+    }
+  }
+}
+layer {
+  name: "block_bn30"
+  type: "BatchNorm"
+  bottom: "block_conv30"
+  top: "block_bn30"
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+}
+layer {
+  name: "block_relu30"
+  type: "ReLU"
+  bottom: "block_bn30"
+  top: "block_bn30"
+  relu_param {
+    negative_slope: 0.01
+  }
+}
+layer {
+  name: "join_large_bn5"
+  type: "BatchNorm"
+  bottom: "block_bn30"
+  top: "join_large_bn5"
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+}
+layer {
+  name: "join_concat5"
+  type: "Concat"
+  bottom: "join_small_bn5"
+  bottom: "join_large_bn5"
+  top: "join_concat5"
+  concat_param {
+    axis: 1
+  }
+}
+layer {
+  name: "block_conv31"
+  type: "Convolution"
+  bottom: "join_concat5"
+  top: "block_conv31"
+  convolution_param {
+    num_output: 48
+    pad: 1
+    kernel_size: 3
+    stride: 1
+    weight_filler {
+      type: "msra"
+      variance_norm: AVERAGE
+    }
+    bias_filler {
+      type: "msra"
+      variance_norm: AVERAGE
+    }
+  }
+}
+layer {
+  name: "block_bn31"
+  type: "BatchNorm"
+  bottom: "block_conv31"
+  top: "block_bn31"
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+}
+layer {
+  name: "block_relu31"
+  type: "ReLU"
+  bottom: "block_bn31"
+  top: "block_bn31"
+  relu_param {
+    negative_slope: 0.01
+  }
+}
+layer {
+  name: "block_conv32"
+  type: "Convolution"
+  bottom: "block_bn31"
+  top: "block_conv32"
+  convolution_param {
+    num_output: 48
+    pad: 1
+    kernel_size: 3
+    stride: 1
+    weight_filler {
+      type: "msra"
+      variance_norm: AVERAGE
+    }
+    bias_filler {
+      type: "msra"
+      variance_norm: AVERAGE
+    }
+  }
+}
+layer {
+  name: "block_bn32"
+  type: "BatchNorm"
+  bottom: "block_conv32"
+  top: "block_bn32"
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+}
+layer {
+  name: "block_relu32"
+  type: "ReLU"
+  bottom: "block_bn32"
+  top: "block_bn32"
+  relu_param {
+    negative_slope: 0.01
+  }
+}
+layer {
+  name: "block_conv33"
+  type: "Convolution"
+  bottom: "block_bn32"
+  top: "block_conv33"
+  convolution_param {
+    num_output: 48
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "msra"
+      variance_norm: AVERAGE
+    }
+    bias_filler {
+      type: "msra"
+      variance_norm: AVERAGE
+    }
+  }
+}
+layer {
+  name: "block_bn33"
+  type: "BatchNorm"
+  bottom: "block_conv33"
+  top: "block_bn33"
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+}
+layer {
+  name: "block_relu33"
+  type: "ReLU"
+  bottom: "block_bn33"
+  top: "block_bn33"
+  relu_param {
+    negative_slope: 0.01
+  }
+}
+layer {
+  name: "conv1"
+  type: "Convolution"
+  bottom: "block_bn33"
+  top: "conv1"
+  convolution_param {
+    num_output: 3
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "msra"
+      variance_norm: AVERAGE
+    }
+    bias_filler {
+      type: "msra"
+      variance_norm: AVERAGE
+    }
+  }
 }
 
