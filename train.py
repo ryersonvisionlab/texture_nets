@@ -9,9 +9,9 @@ def deprocess_net_image(image):
   image = image.squeeze()           # get rid of extra dimensions
   image = image[::-1]               # BGR -> RGB
   image = image.transpose(1, 2, 0)  # CHW -> HWC
-  image[:, :, 0] += 103.939
+  image[:, :, 2] += 103.939
   image[:, :, 1] += 116.779
-  image[:, :, 2] += 123.68
+  image[:, :, 0] += 123.68
 
   # clamp values in [0, 255]
   image[image < 0], image[image > 255] = 0, 255
@@ -48,7 +48,11 @@ im = caffe.io.load_image('./data/textures/red-peppers256.o.jpg')
 #im[:, :, 1] -= 116.779
 #im[:, :, 2] -= 123.68
 
-# resize to target size
+# resize to target size (can probably replace with caffe.io.resize_image)
+if im.shape[0] > im.shape[1]:
+  im = caffe.io.oversample([im], (im.shape[1],im.shape[1]))[4] # use center crop
+elif im.shape[0] < im.shape[1]:
+  im = caffe.io.oversample([im], (im.shape[0],im.shape[0]))[4] # use center crop
 im = cv2.resize(im, (256,256), interpolation=cv2.INTER_CUBIC)
 
 # preprocess target texture and set descriptor input
@@ -66,4 +70,10 @@ texture_net_solver.net.blobs['texture_target4_1'].data[...] = descriptor.blobs['
 texture_net_solver.net.blobs['texture_target5_1'].data[...] = descriptor.blobs['gram5_1'].data[...].copy()
 
 # learn texture
-#texture_net_solver.solve()
+texture_net_solver.solve()
+
+# save images from batch
+num = texture_net_solver.net.blobs['conv1'].data.shape[0]
+for i in range(0, num):
+  img = deprocess_net_image(texture_net_solver.net.blobs['conv1'].data[i])
+  Image.fromarray(img).save(str(i+1) + '.png')

@@ -5,7 +5,7 @@ net: "./models/merged/merged.prototxt"
 type: "Adam" 
 
 # max_iter specifies the number of training iterations
-max_iter: 500
+max_iter: 1500
 
 # The base learning rate of the network.
 base_lr: 0.1
